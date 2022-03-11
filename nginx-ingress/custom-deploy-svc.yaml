@@ -1,0 +1,52 @@
+# Deployment custom-hello
+# https://github.com/paulbouwer/hello-kubernetes
+# kubectl apply -f custom-deploy-svc.yaml
+# kubectl get pods -l run=custrom-kubernetes -o wide
+# kubectl get svc custom-kubernetes
+# https://github.com/paulbouwer/hello-kubernetes
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: kpcard-development
+  name: custom-kubernetes
+  labels:
+    run: custom-kubernetes
+spec:
+  type: ClusterIP # default type
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    run: custom-kubernetes
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kpcard-development
+  name: custom-kubernetes
+spec:
+  selector:
+    matchLabels:
+      run: custom-kubernetes
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        run: custom-kubernetes
+    spec:
+      containers:
+      - name: custom-kubernetes
+        image: paulbouwer/hello-kubernetes:1.8
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MESSAGE
+          value: I just deployed this on Kubernetes(development)
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+ 

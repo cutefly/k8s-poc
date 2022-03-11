@@ -1,0 +1,69 @@
+# nginx ingress는 namespace별로 생성이 가능함.
+# kpcard-development namespace의 ingress 생성(KPCard 서비스)
+# kubectl apply -f tls-ingress.yaml
+# kubectl delete -f tls-ingress.yaml
+# upload size 변경(1m => 20m)
+# metadata
+#   annotations:
+#     nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+#     nginx.org/client-max-body-size: "20m"
+#
+# nginx ingress controller를 v.1.0.4로 변경한데 따른 옵션 추가
+# metadata
+#  annotations:
+#    kubernetes.io/ingress.class: "nginx"
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: kpcard-development
+  name: kpcard-tls-ingress
+  labels:
+    profile: development
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+    nginx.org/client-max-body-size: "20m"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "kpcard"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  tls:
+  - hosts:
+      - nginx.palrago.com
+    secretName: palrago-secret-tls
+  - hosts:
+      - nginx.prepaidcard.co.kr
+    secretName: prepaidcard-secret-tls
+  rules:
+  # Palrago Admin V2
+  - host: nginx.palrago.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-nginx
+            port: 
+              number: 80
+  - host: nginx.palrago.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-kubernetes
+            port: 
+              number: 8080
+  - host: nginx.prepaidcard.co.kr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: custom-kubernetes
+            port: 
+              number: 8080

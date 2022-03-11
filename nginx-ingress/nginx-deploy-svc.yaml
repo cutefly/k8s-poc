@@ -1,0 +1,55 @@
+# Deployment nginx
+# kubectl apply -f nginx-deploy-svc.yaml
+# kubectl get pods -l run=my-nginx -o wide
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kpcard-development
+  name: my-nginx
+  annotations:
+    keel.sh/trigger: poll
+    keel.sh/pollSchedule: "@every 30s"
+    keel.sh/policy: all
+    keel.sh/approvals: "1"
+spec:
+  selector:
+    matchLabels:
+      run: my-nginx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: my-nginx
+    spec:
+      containers:
+      - name: my-nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "1280Mi"
+            cpu: "1000m"
+          requests:
+            memory: "768Mi"
+            cpu: "100m"
+---
+# Expose nginx service
+# kubectl expose deployment/my-nginx 또는
+# kubectl apply -f nginx-svc.yaml
+# kubectl get svc my-nginx
+# kubectl describe svc my-nginx
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: kpcard-development
+  name: my-nginx
+  labels:
+    run: my-nginx
+spec:
+  type: ClusterIP # default type
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    run: my-nginx
