@@ -5,6 +5,9 @@
 ```
 minikube start -p argoproj
 minikube profile argoproj
+
+# ingress controller(nginx)
+minikube addons enable ingress
 ```
 
 ## Argo CD
@@ -14,6 +17,23 @@ minikube profile argoproj
 ```
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
+- insecure mode
+
+```yaml
+# override configmap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-cmd-params-cm
+    app.kubernetes.io/part-of: argocd
+  name: argocd-cmd-params-cm
+data:
+  server.insecure: "true"
+# redepoly argocd-service
+$ kubectl apply -n argocd -f cd/install.yaml
 ```
 
 ### 2. Download Argo CD CLI

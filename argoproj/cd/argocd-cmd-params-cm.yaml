@@ -1,0 +1,14 @@
+# ovierride insecure mode
+# server.insecure: "true"
+# --insecurefh 실행
+# kubectl apply -f argocd-cmd-params-cm.yaml -n argocd
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-cmd-params-cm
+    app.kubernetes.io/part-of: argocd
+  name: argocd-cmd-params-cm
+data:
+  server.insecure: "true"
