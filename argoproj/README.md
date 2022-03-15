@@ -74,6 +74,10 @@ $ argocd account update-password
 
 ## Argo Rollouts
 
+> https://argoproj.github.io/argo-rollouts/getting-started/
+
+> https://argoproj.github.io/argo-rollouts/getting-started/nginx/
+
 ### Controller Installation
 
 ```
@@ -87,7 +91,9 @@ kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/rele
 brew install argoproj/tap/kubectl-argo-rollouts
 ```
 
-### Getting Started - NGINX Ingress
+## Getting Started - NGINX Ingress
+
+### Canary strategy
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master/docs/getting-started/nginx/rollout.yaml
@@ -95,7 +101,7 @@ kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master
 kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master/docs/getting-started/nginx/ingress.yaml
 
 # ingress upgrade
-kubectl apply -f argo-rollouts
+kubectl apply -f argo-rollouts/canary/
 ```
 
 ```
@@ -105,17 +111,46 @@ kubectl argo rollouts get rollout rollouts-demo
 
 ```
 # perform an update
-
 kubectl argo rollouts set image rollouts-demo rollouts-demo=argoproj/rollouts-demo:yellow
 kubectl argo rollouts get rollout rollouts-demo
 
 # Promoting a Rollout
-
 kubectl argo rollouts promote rollouts-demo
+
+kubectl argo rollouts set image rollouts-demo rollouts-demo=argoproj/rollouts-demo:red
+kubectl argo rollouts get rollout rollouts-demo
+
+# Aborting a Rollout
+kubectl argo rollouts abort rollouts-demo
+
+# Healthy again and not Degraded
+kubectl argo rollouts set image rollouts-demo rollouts-demo=argoproj/rollouts-demo:yellow
 ```
 
 ```
 # UI Dashboard
 
 kubectl argo rollouts dashboard
+```
+
+### Bluegreen strategy
+
+```
+# ingress upgrade
+kubectl apply -f argo-rollouts/bluegreen/
+kubectl argo rollouts promote rollout-bluegreen
+
+# check status
+kubectl argo rollouts get rollout rollout-bluegreen --watch
+
+# Promoting a Rollout
+kubectl argo rollouts set image rollout-bluegreen rollouts-demo=argoproj/rollouts-demo:yellow
+kubectl argo rollouts promote rollout-bluegreen
+
+# Aborting a Rollout
+kubectl argo rollouts set image rollout-bluegreen rollouts-demo=argoproj/rollouts-demo:red
+kubectl argo rollouts abort rollout-bluegreen
+
+# Healthy again and not Degraded
+kubectl argo rollouts set image rollout-bluegreen rollouts-demo=argoproj/rollouts-demo:yellow
 ```
