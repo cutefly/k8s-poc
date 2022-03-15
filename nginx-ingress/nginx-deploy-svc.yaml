@@ -28,11 +28,11 @@ spec:
         - containerPort: 80
         resources:
           limits:
-            memory: "1280Mi"
-            cpu: "1000m"
+            memory: "64Mi"
+            cpu: "10m"
           requests:
-            memory: "768Mi"
-            cpu: "100m"
+            memory: "32Mi"
+            cpu: "5m"
 ---
 # Expose nginx service
 # kubectl expose deployment/my-nginx 또는
