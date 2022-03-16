@@ -154,3 +154,21 @@ kubectl argo rollouts abort rollout-bluegreen
 # Healthy again and not Degraded
 kubectl argo rollouts set image rollout-bluegreen rollouts-demo=argoproj/rollouts-demo:yellow
 ```
+
+## Argo CD Image Updater
+
+```
+# install cli
+download argocd-image-updater_platform
+mv argocd-image-updater_$platform /usr/local/bin/argocd-image-updater
+
+argocd-image-updater version
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
+
+```
+
+```
+export REGISTRY_PULLSECRET="deployment:deploy233=*"
+argocd-image-updater test registry.kpcard.co.kr/kr.co.prepaidcard/cadmium-coupon-admin --platforms linux/amd64 --update-strategy latest --credentials env:REGISTRY_PULLSECRET
+```

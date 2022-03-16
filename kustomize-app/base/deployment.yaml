@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: update-nginx
+spec:
+  selector:
+    matchLabels:
+      app: update-nginx
+  template:
+    metadata:
+      labels:
+        app: update-nginx
+    spec:
+      containers:
+      - name: update-nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "10m"
+          requests:
+            memory: "32Mi"
+            cpu: "5m"
