@@ -1,0 +1,50 @@
+# Deployment nginx
+# kubectl apply -f nginx-deploy-svc.yaml
+# kubectl get pods -l run=my-nginx -o wide
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kpcard-development
+  name: update-nginx
+spec:
+  selector:
+    matchLabels:
+      run: update-nginx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: update-nginx
+    spec:
+      containers:
+      - name: update-nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "10m"
+          requests:
+            memory: "32Mi"
+            cpu: "5m"
+---
+# Expose nginx service
+# kubectl expose deployment/my-nginx 또는
+# kubectl apply -f nginx-svc.yaml
+# kubectl get svc my-nginx
+# kubectl describe svc my-nginx
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: kpcard-development
+  name: update-nginx
+  labels:
+    run: update-nginx
+spec:
+  type: ClusterIP # default type
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    run: update-nginx
