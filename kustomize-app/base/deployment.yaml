@@ -23,3 +23,6 @@ spec:
           requests:
             memory: "32Mi"
             cpu: "5m"
+      imagePullSecrets:
+        - name: kpcard-registry-cred
+
