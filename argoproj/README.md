@@ -157,18 +157,47 @@ kubectl argo rollouts set image rollout-bluegreen rollouts-demo=argoproj/rollout
 
 ## Argo CD Image Updater
 
-```
+```sh
 # install cli
-download argocd-image-updater_platform
-mv argocd-image-updater_$platform /usr/local/bin/argocd-image-updater
+# download argocd-image-updater_platform
+$ mv argocd-image-updater_$platform /usr/local/bin/argocd-image-updater
 
-argocd-image-updater version
+$ argocd-image-updater version
 
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
+$ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
+
+```
+
+```sh
+# argocd image-updater test command(using env)
+$ export REGISTRY_PULLSECRET="userid:password"
+$ argocd-image-updater test registry.kpcard.co.kr/kr.co.prepaidcard/cadmium-coupon-admin --platforms linux/amd64 --update-strategy latest --credentials env:REGISTRY_PULLSECRET
+
+# argocd image-updater test command(using pullsecret)
+argocd-image-updater test --kubeconfig ~/.kube/config docker.kpcard.co.kr/nginx --credentials pullsecret:argocd/kpcard-registry-cred
+
+# argocd annotation
+argocd-image-updater.argoproj.io/image-list: nginx-alias=docker.kpcard.co.kr/nginx
+argocd-image-updater.argoproj.io/nginx-alias.pull-secret: pullsecret:argocd/kpcard-registry-cred
+argocd-image-updater.argoproj.io/nginx-alias.update-strategy: latest
 
 ```
 
-```
-export REGISTRY_PULLSECRET="deployment:deploy233=*"
-argocd-image-updater test registry.kpcard.co.kr/kr.co.prepaidcard/cadmium-coupon-admin --platforms linux/amd64 --update-strategy latest --credentials env:REGISTRY_PULLSECRET
+```yaml
+# ca-certificates 이슈가 있는 경우 registries.conf 파일로 설정(insecure: true)
+data:
+  registries.conf: |
+    registries:
+    - name: KPC Registry
+      prefix: docker.kpcard.co.kr
+      api_url: https://docker.kpcard.co.kr
+      credentials: pullsecret:argocd/kpcard-registry-cred
+      insecure: true
+      default: true
+
+# kubectl apply -n argocd -f custom-install.yaml
+
+# 참고 URL
+# X509: certificate signed by unknown authority, private registry, NOT a self-signed cert
+# https://forums.docker.com/t/x509-certificate-signed-by-unknown-authority-private-registry-not-a-self-signed-cert/53150
 ```
