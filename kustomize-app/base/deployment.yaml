@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: update-nginx
-        image: docker.kpcard.co.kr/nginx:1.21.1
+        image: registry.kpcard.co.kr/kr.co.prepaidcard.poc/nginx:1.21.1
         ports:
         - containerPort: 80
         resources:
