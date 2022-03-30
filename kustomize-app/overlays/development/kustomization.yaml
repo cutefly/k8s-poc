@@ -5,6 +5,3 @@ bases:
 - ../../base
 
 namespace: kpcard-development
-
-patchesStrategicMerge:
-  - ""
