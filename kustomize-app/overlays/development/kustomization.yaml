@@ -3,5 +3,3 @@ kind: Kustomization
 
 bases:
 - ../../base
-
-namespace: kpcard-development
