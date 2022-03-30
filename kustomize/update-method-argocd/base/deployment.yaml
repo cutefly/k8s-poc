@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: update-nginx
+  name: update-method-argocd
 spec:
   selector:
     matchLabels:
-      app: update-nginx
+      app: update-method-argocd
   template:
     metadata:
       labels:
-        app: update-nginx
+        app: update-method-argocd
     spec:
       containers:
-      - name: update-nginx
+      - name: main-container
         image: docker.kpcard.co.kr/kr.co.prepaidcard.poc/nginx:1.21.1
         ports:
         - containerPort: 80

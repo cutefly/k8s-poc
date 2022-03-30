@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: update-method-git
+spec:
+  selector:
+    matchLabels:
+      app: update-method-git
+  template:
+    metadata:
+      labels:
+        app: update-method-git
+    spec:
+      containers:
+      - name: main-container
+        image: docker.kpcard.co.kr/kr.co.prepaidcard.poc/nginx:1.21.1
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "10m"
+          requests:
+            memory: "32Mi"
+            cpu: "5m"
+      imagePullSecrets:
+        - name: kpcard-registry-cred
+

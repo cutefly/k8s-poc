@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: update-nginx
+  name: update-method-git
 spec:
   ports:
     - name: http
       port: 80
   selector:
-    app: update-nginx
+    app: update-method-git
