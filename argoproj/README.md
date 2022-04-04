@@ -40,6 +40,9 @@ data:
 # install argocd insecure mode
 $ kubectl apply -n argocd -f argo-cd/install.yaml - 1.8G
 
+# install using kustomization
+$ kustomize build kustomize/overlays/insecure | kubectl apply -f -
+
 # 인증서 등록
 $ kubectl apply -n argocd -f argo-cd/secret/prepaidcard-secret-tls.yaml
 $ kubectl apply -f argo-cd/tls-ingress.yaml
