@@ -75,6 +75,34 @@ $ argocd login 127.0.0.1
 $ argocd account update-password
 ```
 
+### 5. Add User
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+  name: argocd-cm
+data:
+  # add an additional local user with apiKey and login capabilities
+  #   apiKey - allows generating API keys
+  #   login - allows to login using UI
+  accounts.devuser: apiKey, login
+  # disables user. User is enabled by default
+  # accounts.devuser.enabled: "false"
+```
+
+```sh
+$ argocd account list
+NAME     ENABLED  CAPABILITIES
+admin    true     login
+devuser  true     apiKey, login
+
+$ argocd account update-password --account devuser --current-password <currentUserPassword> --new-password <newPassword>
+```
+
 ## Argo Rollouts
 
 > https://argoproj.github.io/argo-rollouts/getting-started/
@@ -169,6 +197,8 @@ $ argocd-image-updater version
 
 $ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
 
+# install using kustomization
+$ kustomize build kustomize/overlays/registries | kubectl apply -f -
 ```
 
 ```sh
