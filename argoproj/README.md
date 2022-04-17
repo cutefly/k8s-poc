@@ -77,6 +77,8 @@ $ argocd account update-password
 
 ### 5. Add User
 
+> https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/
+
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -101,6 +103,26 @@ admin    true     login
 devuser  true     apiKey, login
 
 $ argocd account update-password --account devuser --current-password <currentUserPassword> --new-password <newPassword>
+```
+
+```yaml
+# devuser 사용자에 권한 부여
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-rbac-cm
+    app.kubernetes.io/part-of: argocd
+  name: argocd-rbac-cm
+data:
+  policy.csv: |
+    p, role:devuser, applications, *, */*, allow
+    p, role:devuser, clusters, get, *, allow
+    p, role:devuser, repositories, get, *, allow
+    p, role:devuser, repositories, create, *, allow
+    p, role:devuser, repositories, update, *, allow
+    p, role:devuser, repositories, delete, *, allow
+    g, devuser, role:devuser
 ```
 
 ## Argo Rollouts

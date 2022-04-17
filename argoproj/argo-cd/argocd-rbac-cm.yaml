@@ -1,0 +1,17 @@
+# kubectl apply -n argocd -f argoproj/argo-cd/argocd-rbac-cm.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-rbac-cm
+    app.kubernetes.io/part-of: argocd
+  name: argocd-rbac-cm
+data:
+  policy.csv: |
+    p, role:devuser, applications, *, */*, allow
+    p, role:devuser, clusters, get, *, allow
+    p, role:devuser, repositories, get, *, allow
+    p, role:devuser, repositories, create, *, allow
+    p, role:devuser, repositories, update, *, allow
+    p, role:devuser, repositories, delete, *, allow
+    g, devuser, role:devuser
