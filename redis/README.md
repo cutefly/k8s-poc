@@ -35,5 +35,24 @@ $ kubectl get service -n redis
 ## Test redis
 
 ```
+# playground 네임스페이스 생성
+# kubectl create namespace playground
 
+# defalt 네임스페이스에서는 redis 네임스페이스에 있는 redis 서비스 접근 불가
+# kubectl run -it --rm busybox --image=busybox --restart=Never -- sh
+/> ping redis <= error
+
+# redis 네임스페이스에서는 redis 네임스페이스에 있는 redis 서비스 접근 가능
+# kubectl run -it --rm busybox --image=busybox --restart=Never --namespace=redis -- sh
+/> telnet redis 6379
+PING
+PONG
+
+# playground 네임스페이스에서 redis 네임스페이스에 있는 redis 서비스를 ExternalService로 등록
+# playground 네임스페이스에서는 playground 네임스페이스에 있는 redis 서비스 접근 가능
+# kubectl apply -n playground -f redis-service-playground.yaml
+# kubectl run -it --rm busybox --image=busybox --restart=Never --namespace=playground -- sh
+/> telnet redis 6379
+PING
+PONG
 ```
