@@ -1,0 +1,45 @@
+# kubectl -n mysql apply -f mysql-statefulset.yaml
+# kubectl -n mysql delete -f mysql-statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  replicas: 2
+  serviceName: mysql
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mysql
+          image: arm64v8/mysql
+          ports:
+            - name: mysql
+              protocol: TCP
+              containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: a-very-complex-password-here
+              # valueFrom: 
+              #  secretKeyRef: 
+              #   key: ROOT_PASSWORD
+              #   name: mysecret
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      # storageClassName: standard
+      storageClassName: "mysql-storage"
+      resources:
+        requests:
+          storage: 1Gi

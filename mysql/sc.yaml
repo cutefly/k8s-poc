@@ -1,0 +1,11 @@
+# create StorageClass(mysql-storage)
+# kubectl apply -f sc.yaml
+# kubectl get sc
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: mysql-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+reclaimPolicy: Delete
