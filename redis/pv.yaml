@@ -1,12 +1,12 @@
-# create PersistentVolme(local-pv$)
+# create PersistentVolme(redis-pv$)
 # kubectl apply -f pv.yaml
 # kubectl get pv
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: local-pv1
+  name: redis-pv1
 spec:
-  storageClassName: local-storage
+  storageClassName: redis-storage
   capacity:
     storage: 1Gi
   accessModes:
@@ -19,9 +19,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: local-pv2
+  name: redis-pv2
 spec:
-  storageClassName: local-storage
+  storageClassName: redis-storage
   capacity:
     storage: 1Gi
   accessModes:
@@ -34,9 +34,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: local-pv3
+  name: redis-pv3
 spec:
-  storageClassName: local-storage
+  storageClassName: redis-storage
   capacity:
     storage: 1Gi
   accessModes:

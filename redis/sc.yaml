@@ -1,10 +1,10 @@
-# create StorageClass(local-storage)
+# create StorageClass(redis-storage)
 # kubectl apply -f sc.yaml
 # kubectl get sc
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: local-storage
+  name: redis-storage
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true

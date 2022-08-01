@@ -1,3 +1,4 @@
+# kubectl apply -n redis -f redis-config.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:

@@ -1,4 +1,5 @@
 # kubectl apply -n playground -f redis-service-playground.yaml
+# kubectl delete -n playground -f redis-service-playground.yaml
 kind: Service
 apiVersion: v1
 metadata:
