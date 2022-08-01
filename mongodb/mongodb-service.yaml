@@ -1,4 +1,4 @@
-# kubectl -n mysql apply -f mongodb-service.yaml
+# kubectl -n mongodb apply -f mongodb-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
