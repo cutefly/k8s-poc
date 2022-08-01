@@ -7,6 +7,7 @@
 > https://medium.com/@shubhamdhote9717/mongodb-deployment-on-kubernetes-cluster-via-deploymentset-and-statefulset-6ca649894ca7
 > https://www.cloudblogg.com/kubernetes/google-kubernetes-engine-running-a-mongodb-database-in-kubernetes-with-statefulsets/
 
+# 최종 참고 URL
 https://www.caseywylie.io/kubernetes/mongodb-stateful-set/
 ```
 
