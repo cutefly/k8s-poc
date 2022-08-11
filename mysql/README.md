@@ -8,7 +8,7 @@
 > https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/
 ```
 
-## persitent volume
+## MySQL server
 
 ```
 $ kubectl create namespace mysql-system
@@ -32,4 +32,10 @@ $ kubectl get pods -n mysql-system
 
 $ kubectl apply -n mysql-system -f mysql-service.yaml
 $ kubectl get service -n mysql-system
+```
+
+## mysql-client
+
+```
+kubectl exec -it -n mysql-system mysql-0 -- sh
 ```
