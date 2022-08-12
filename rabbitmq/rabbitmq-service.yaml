@@ -5,8 +5,15 @@ metadata:
     component: rabbitmq
   name: rabbitmq-service
 spec:
-  ports:
-  - port: 5672
   selector:
     app: taskQueue
     component: rabbitmq
+  ports:
+    - name: tcp
+      protocol: TCP
+      port: 5672
+      targetPort: 5672
+    - name: http
+      protocol: TCP
+      port: 15672
+      targetPort: 15672
