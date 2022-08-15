@@ -12,3 +12,9 @@ kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisione
 kubectl create -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/examples/pvc.yaml
 kubectl create -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/examples/pod.yaml
 ```
+
+## local path provisioner
+
+```
+$ kubectl apply -f local-path-storage.yaml
+```

@@ -22,13 +22,13 @@ $ kubectl get sc
 $ kubectl apply -f pv.yaml
 $ kubectl get pv
 
-$ kubectl apply -n redis -f redis-config.yaml
+$ kubectl apply -n redis-system -f redis-config.yaml
 $ kubectl get configmap -n redis
 
-$ kubectl apply -n redis -f redis-statefulset.yaml
+$ kubectl apply -n redis-system -f redis-statefulset.yaml
 $ kubectl get pods -n redis
 
-$ kubectl apply -n redis -f redis-service.yaml
+$ kubectl apply -n redis-system -f redis-service.yaml
 $ kubectl get service -n redis
 ```
 

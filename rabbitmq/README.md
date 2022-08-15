@@ -1,5 +1,16 @@
 # RabbitMQ
 
+## minikubr 준비
+
+```
+$ minikube start -p rabbitmq
+$ minikube profile list
+$ minikube profile rabbitmq
+$ miinikube stop
+$ minikube profile rabbitmq
+$ minikube start
+```
+
 ## Simple demo
 
 ```

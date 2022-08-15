@@ -11,10 +11,20 @@
 https://www.caseywylie.io/kubernetes/mongodb-stateful-set/
 ```
 
+## minikube 준비
+
+```
+$ minikube start -p mongodb
+$ minikube stop
+$ minikube profile
+$ minikube profie mongodb
+# minikube start
+```
+
 ## persitent volume
 
 ```
-$ kubectl create namespace mongodb
+$ kubectl create namespace mongodb-system
 $ kubectl get ns
 
 $ kubectl apply -f sc.yaml
@@ -24,36 +34,33 @@ $ kubectl get sc
 $ kubectl apply -f pv.yaml
 $ kubectl get pv
 
-# 사용안함
-$ kubectl apply -n mongodb -f mongodb-config.yaml
-
 # bitami 대신 공식 이미지로 구현
-$ kubectl apply -n mongodb -f mongodb-statefulset.yaml
-$ kubectl get pods -n mongodb
+$ kubectl apply -n mongodb-system -f mongodb-statefulset.yaml
+$ kubectl get pods -n mongodb-system
 
-$ kubectl apply -n mongodb -f mongodb-service.yaml
-$ kubectl get service -n mongodb
+$ kubectl apply -n mongodb-system -f mongodb-service.yaml
+$ kubectl get service -n mongodb-system
 ```
 
 ## Configure
 
 ```
-$ kubectl run -it --rm busybox --image=busybox --restart=Never --namespace=mongodb -- sh
+$ kubectl run -it --rm busybox --image=busybox --restart=Never --namespace=mongodb-system -- sh
 ping mongodb-0.mongodb.mongodb.svc.cluster.local
 ```
 
 ```
-$ kubectl exec -it -n mongodb mongodb-0 -- mongo
+$ kubectl exec -it -n mongodb-system mongodb-0 -- mongo
 
 # initialize mongodb cluster
 MainRepSet:PRIMARY> rs.initiate({
 _id: "MainRepSet",
 members: [
-    { _id: 0, host: "mongodb-0.mongodb.mongodb.svc.cluster.local:27017"
+    { _id: 0, host: "mongodb-0.mongodb.mongodb-system.svc.cluster.local:27017"
     },
-    { _id: 1, host: "mongodb-1.mongodb.mongodb.svc.cluster.local:27017"
+    { _id: 1, host: "mongodb-1.mongodb.mongodb-system.svc.cluster.local:27017"
     },
-    { _id: 2, host: "mongodb-2.mongodb.mongodb.svc.cluster.local:27017"
+    { _id: 2, host: "mongodb-2.mongodb.mongodb-system.svc.cluster.local:27017"
     }]
 })
 
@@ -67,13 +74,13 @@ MainRepSet:PRIMARY> db.local.find()
 
 
 
-$ kubectl exec -it -n mongodb mongodb-1 -- mongo
+$ kubectl exec -it -n mongodb-system mongodb-1 -- mongo
 MainRepSet:SECONDARY> rs.secondaryOk()
 MainRepSet:SECONDARY> db.local.find()
 { "_id" : ObjectId("62e7c88ef6a4ad93a24f54b8"), "name" : "dbot" }
 
 
-$ kubectl exec -it -n mongodb mongodb-2 -- mongo
+$ kubectl exec -it -n mongodb-system mongodb-2 -- mongo
 MainRepSet:SECONDARY> rs.secondaryOk()
 MainRepSet:SECONDARY> db.local.find()
 { "_id" : ObjectId("62e7c88ef6a4ad93a24f54b8"), "name" : "dbot" }
