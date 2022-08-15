@@ -28,11 +28,11 @@ $ kubectl get pv
 $ kubectl apply -n mongodb -f mongodb-config.yaml
 
 # bitami 대신 공식 이미지로 구현
-$ kubectl apply -n monogodb -f monogodb-statefulset.yaml
-$ kubectl get pods -n monogodb
+$ kubectl apply -n mongodb -f mongodb-statefulset.yaml
+$ kubectl get pods -n mongodb
 
-$ kubectl apply -n monogodb -f monogodb-service.yaml
-$ kubectl get service -n monogodb
+$ kubectl apply -n mongodb -f mongodb-service.yaml
+$ kubectl get service -n mongodb
 ```
 
 ## Configure
