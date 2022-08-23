@@ -15,10 +15,9 @@ https://www.caseywylie.io/kubernetes/mongodb-stateful-set/
 
 ```
 $ minikube start -p mongodb
-$ minikube stop
-$ minikube profile
-$ minikube profie mongodb
-# minikube start
+$ minikube profile list
+$ minikube stop -p mongodb
+$ minikube start -p mongodb
 ```
 
 ## persitent volume
@@ -46,7 +45,7 @@ $ kubectl get service -n mongodb-system
 
 ```
 $ kubectl run -it --rm busybox --image=busybox --restart=Never --namespace=mongodb-system -- sh
-ping mongodb-0.mongodb.mongodb.svc.cluster.local
+ping mongodb-0.mongodb.mongodb-system.svc.cluster.local
 ```
 
 ```

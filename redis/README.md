@@ -3,9 +3,10 @@
 ## create k8s cluster(redis)
 
 ```sh
-$ minikube profile redis
 $ minikube start -p redis
-$ minikube stop
+$ minikube profile list
+$ minikube stop -p redis
+$ minikube start -p redis
 ```
 
 ## redis custer on kubernetes
@@ -13,7 +14,7 @@ $ minikube stop
 > https://www.containiq.com/post/deploy-redis-cluster-on-kubernetes
 
 ```
-$ kubectl create namespace redis
+$ kubectl create namespace redis-system
 $ kubectl get ns
 
 $ kubectl apply -f sc.yaml

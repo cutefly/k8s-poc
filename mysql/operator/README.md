@@ -6,9 +6,9 @@
 
 ```
 $ minikube start -p mysql
-$ minikube profile mysql
-$ minikube stop
-$ minikube start
+$ minikube profile list
+$ minikube stop -p mysql
+$ minikube start -p mysql
 ```
 
 ## Operator를 이용한 cluster 설치
@@ -24,7 +24,7 @@ $ kubectl create namespace mysql-system
 $> kubectl create secret generic rootpwd \
  --from-literal=rootUser=root \
  --from-literal=rootHost=% \
- --from-literal=rootPassword="kpcard"
+ --from-literal=rootPassword="kpcard1@"
 
 $> kubectl create -n mysql-system -f mysql-root-secret.yaml
 
