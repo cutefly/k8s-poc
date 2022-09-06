@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-space
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nignx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx-example
+  rules:
+  - http:
+      paths:
+      - path: /wear
+        pathType: Prefix
+        backend:
+          service:
+            name: wear-service
+            port:
+              number: 8080
+      - path: /watch
+        pathType: Prefix
+        backend:
+          service:
+            name: video-service
+            port:
+              number: 8080
+
+# kubectl create ingress ingress-wear-watch -n app-apace --rule="/wear=wear-service:8080" --rule="/watch=video-service:8080"
