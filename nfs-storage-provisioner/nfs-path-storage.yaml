@@ -103,13 +103,13 @@ spec:
             - name: PROVISIONER_NAME
               value: k8s-sigs.io/nfs-subdir-external-provisioner
             - name: NFS_SERVER
-              value: 172.21.80.1
+              value: 172.21.99.241
             - name: NFS_PATH
               value: /opt/nfsshare/nfs-path-provisioner
       volumes:
         - name: nfs-client-root
           nfs:
-            server: 172.21.80.1
+            server: 172.21.99.241
             path: /opt/nfsshare/nfs-path-provisioner
 ---
 apiVersion: storage.k8s.io/v1

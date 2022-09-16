@@ -71,3 +71,12 @@ CNI
 /opt/cni/bin
 /etc/cni/net.d/
 ```
+
+### Kubectl config
+
+```
+kubectl config view --kubeconfig=/root/my-kube-config
+kubectl config set-context --current --namespace my-space
+
+kubectl config set-context my-context --namespace my-space
+```

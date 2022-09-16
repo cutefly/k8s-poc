@@ -15,16 +15,25 @@ sudo chmod 777 /opt/nfsshare
 /opt/nfsshare        *(rw,sync,no_subtree_check,insecure)
 
 sudo apt install nfs-kernel-server rpcbind
+
 sudo service rpcbind start
 sudo service nfs-kernel-server start
 ```
 
-## PowerShell(Administrator)
+## PowerShell(Administrator) - 옵션 사항
 
 ```
+# 외부에 NFS를 제공해야하는 경우에 설정
 # Port forwarding
-# 172.21.89.67은 wsl의 eth0 주소
-netsh interface portproxy add v4tov4 listenport=2049 listenaddress=0.0.0.0 connectport=2-49 connectaddress=172.21.89.67
+# wsl의 eth0 주소
+
+# add portproxy
+netsh interface portproxy add v4tov4 listenport=2049 listenaddress=0.0.0.0 connectport=2049 connectaddress=172.21.99.241
+
+# delete portproxy
+netsh interface portproxy delete v4tov4 listenport=2049 listenaddress=0.0.0.0
+
+# show portproxy
 netsh interface portproxy show v4tov4
 ```
 
@@ -34,8 +43,9 @@ netsh interface portproxy show v4tov4
 volumes:
 - name: nfs-client-root
     nfs:
-    # 172.21.80.1은 윈도우의 WSL의 vEthernet 주소
-    server: 172.21.80.1
+    # wsl의 eth0 주소
+    # 또는 (포트포워딩한 경우) 윈도우 상의 WSL vEthernet 주소
+    server: 172.21.99.241
     # exports 주소
     path: /opt/nfsshare/nfs-path-provisioner
 ```

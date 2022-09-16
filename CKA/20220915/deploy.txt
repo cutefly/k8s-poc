@@ -1,0 +1,17 @@
+DEPLOYMENT CONTAINER_IMAGE READY_REPLICAS NAMESPACE
+
+kubectl get deploy -n admin2406 --sort-by=.metadata.name -o custom-columns=DEPLOYMENT:.metadata.name,CONTAINER_IMAGE:.spec.template.spec.containers[0].image,READY_REPLICAS:.status.readyReplicas,NAMESPACE:.metadata.namespace
+
+kubectl create deployment -n default nginx-deploy --image=nginx:1.16 --replicas=1
+
+
+kubectl set image deployment/nginx-deploy nginx=nginx:1.17
+
+ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/ca.crt --key=/etc/kubernetes/pki/etcd/ca.key \
+  snapshot save /opt/etcd-backup.db
+
+kubectl run secret-1401 --image=busybox -n admin1401 
+
+kubectl run nginx --image=busybox  --dri-run=client --command -- sleep 4800
+
