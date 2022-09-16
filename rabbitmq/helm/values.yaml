@@ -1,0 +1,18 @@
+# helm chart values for rabbitmq
+persistence:
+  enabled: true
+  # storageClass: nfs-client
+  size: 500Mi
+namespaceOverride: rabbitmq-system
+replicaCount: 3
+ingress:
+  enabled: true
+  ingressClassName: "nginx"
+  hostname: "mq-admin.k8s.local"
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
