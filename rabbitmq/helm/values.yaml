@@ -1,8 +1,10 @@
 # helm chart values for rabbitmq
-persistence:
-  enabled: true
-  # storageClass: nfs-client
-  size: 500Mi
+# persistence:
+#   enabled: true
+#   # storageClass: nfs-client
+#   storageClass: local-path
+#   size: 500Mi
+nameOverride: cluster
 namespaceOverride: rabbitmq-system
 replicaCount: 3
 ingress:
