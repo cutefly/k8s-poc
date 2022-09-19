@@ -1,6 +1,7 @@
 # RabbitMQ Helm chart
 
 > https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq/#installing-the-chart
+https://github.com/bitnami/charts/blob/master/bitnami/rabbitmq/values.yaml
 
 ```sh
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
