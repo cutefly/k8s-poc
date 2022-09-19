@@ -8,10 +8,11 @@ kubectl create deployment -n default nginx-deploy --image=nginx:1.16 --replicas=
 kubectl set image deployment/nginx-deploy nginx=nginx:1.17
 
 ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
-  --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/ca.crt --key=/etc/kubernetes/pki/etcd/ca.key \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key \
   snapshot save /opt/etcd-backup.db
 
 kubectl run secret-1401 --image=busybox -n admin1401 
 
-kubectl run nginx --image=busybox  --dri-run=client --command -- sleep 4800
+kubectl run nginx --image=busybox  --dry-run=client --command -- sleep 4800
 
+kubectl create deployment nginx-deploy --image=nginx:1.16 --replicas=1 --dry-run=client -o yaml
