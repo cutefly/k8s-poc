@@ -51,3 +51,18 @@ No resources found in default namespace.
 root@controlplane:~# kubectl get pvc -n alpha
 NAME          STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 alpha-claim   Pending                                      slow-storage   19m
+
+# pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-alpha-pvc
+spec:
+  storageClassName: slow
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+kubectl apply -n alpha -f pvc.yaml
