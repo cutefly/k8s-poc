@@ -1,19 +1,19 @@
 # 1.21.x-00에서 x를 최신 패치 버전으로 바꾼다.
 apt-mark unhold kubeadm && \
-apt-get update && apt-get install -y kubeadm=1.20.15-00 && \
+apt-get update && apt-get install -y kubeadm=1.20.0-00 && \
 apt-mark hold kubeadm
 -
 # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
 #apt-get update && \
 #apt-get install -y --allow-change-held-packages kubeadm=1.21.x-00
 
-sudo kubeadm upgrade apply v1.20.15
+sudo kubeadm upgrade apply v1.20.0
 
 kubectl drain controlplane --ignore-daemonsets
 
 # 1.21.x-00의 x를 최신 패치 버전으로 바꾼다
 apt-mark unhold kubelet kubectl && \
-apt-get update && apt-get install -y kubelet=1.20.15-00 kubectl=1.20.15-00 && \
+apt-get update && apt-get install -y kubelet=1.20.0-00 kubectl=1.20.0-00 && \
 apt-mark hold kubelet kubectl
 -
 # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
@@ -28,7 +28,7 @@ kubectl uncordon controlplane
 
 # 1.21.x-00의 x를 최신 패치 버전으로 바꾼다
 apt-mark unhold kubeadm && \
-apt-get update && apt-get install -y kubeadm=1.20.15-00 && \
+apt-get update && apt-get install -y kubeadm=1.20.0-00 && \
 apt-mark hold kubeadm
 -
 # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
@@ -42,7 +42,7 @@ kubectl drain node01 --ignore-daemonsets
 
 # 1.21.x-00의 x를 최신 패치 버전으로 바꾼다
 apt-mark unhold kubelet kubectl && \
-apt-get update && apt-get install -y kubelet=1.20.15-00 kubectl=1.20.15-00 && \
+apt-get update && apt-get install -y kubelet=1.20.0-00 kubectl=1.20.0-00 && \
 apt-mark hold kubelet kubectl
 -
 # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다

@@ -4,6 +4,7 @@ kubectl get deploy -n admin2406 --sort-by=.metadata.name -o custom-columns=DEPLO
 
 kubectl create deployment -n default nginx-deploy --image=nginx:1.16 --replicas=1
 
+kubectl create deployment nginx-deploy --image=nginx:1.16 --replicas=1
 
 kubectl set image deployment/nginx-deploy nginx=nginx:1.17
 
