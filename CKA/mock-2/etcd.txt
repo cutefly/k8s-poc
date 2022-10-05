@@ -1,0 +1,5 @@
+root        3246    3162  0 00:24 ?        00:00:21 etcd --advertise-client-urls=https://10.122.144.6:2379 --cert-file=/etc/kubernetes/pki/etcd/server.crt --client-cert-auth=true --data-dir=/var/lib/etcd --initial-advertise-peer-urls=https://10.122.144.6:2380 --initial-cluster=controlplane=https://10.122.144.6:2380 --key-file=/etc/kubernetes/pki/etcd/server.key --listen-client-urls=https://127.0.0.1:2379,https://10.122.144.6:2379 --listen-metrics-urls=http://127.0.0.1:2381 --listen-peer-urls=https://10.122.144.6:2380 --name=controlplane --peer-cert-file=/etc/kubernetes/pki/etcd/peer.crt --peer-client-cert-auth=true --peer-key-file=/etc/kubernetes/pki/etcd/peer.key --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt --snapshot-count=10000 --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt
+
+ETCDCTL_API=3 etcdctl --endpoints=https://10.122.144.6:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key \
+  snapshot save /opt/etcd-backup.db

@@ -1,0 +1,36 @@
+root@controlplane ~ ➜  kubectl get pv
+NAME   CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
+pv-1   10Mi       RWO            Retain           Available                                   6m15s
+
+root@controlplane ~ ➜  cat pvc.yaml 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Mi
+
+
+root@controlplane ~ ➜  cat /root/CKA/use-pv.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: use-pv
+  name: use-pv
+spec:
+  containers:
+  - image: nginx
+    name: use-pv
+    volumeMounts:
+      - mountPath: "/data"
+        name: my-volume
+  volumes:
+    - name: my-volume
+      persistentVolumeClaim:
+        claimName: my-pvc

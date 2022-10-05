@@ -1,0 +1,5 @@
+kubectl run nginx-resolver --image=nginx
+
+kubectl expose pod nginx-resolver --port=80 --name=nginx-resolver-service
+
+kubectl run -it nslookup --image:busybox:1.28 -- sh

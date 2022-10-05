@@ -1,0 +1,46 @@
+kubectl run redis-storage --image=redis:alpine --dry-run=client -o yaml
+
+root@controlplane kubernetes/pki/etcd ➜  cat redis-storage.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: redis-storage
+  name: redis-storage
+spec:
+  containers:
+  - image: redis:alpine
+    name: redis-storage
+    volumeMounts:
+    - mountPath: /data/redis
+      name: cache-volume
+  volumes:
+  - name: cache-volume
+    emptyDir: {}
+
+kubectl run super-user-pod --image=busybox:1.28 --dry-run=client -o yaml --command -- sleep 4800
+
+
+    securityContext:
+      capabilities:
+        add: ["NET_ADMIN", "SYS_TIME"]
+
+root@controlplane kubernetes/pki/etcd ➜  cat super-user-pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: super-user-pod
+  name: super-user-pod
+spec:
+  containers:
+  - command:
+    - sleep
+    - "4800"
+    image: busybox:1.28
+    name: super-user-pod
+    securityContext:
+      capabilities:
+        add: ["NET_ADMIN", "SYS_TIME"]
