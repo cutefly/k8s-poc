@@ -64,3 +64,7 @@ curl -udefault_user_m0Hp1hdHKp2ZLpKPePn:_vtOVmhMCkK7HpXlLB96aCpUvXFpzjDC localho
 default_user_m0Hp1hdHKp2ZLpKPePn
 _vtOVmhMCkK7HpXlLB96aCpUvXFpzjDC
 ```
+
+### How to install plugin
+
+> https://github.com/rabbitmq/cluster-operator/blob/main/docs/examples/community-plugins/rabbitmq.yaml

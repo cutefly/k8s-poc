@@ -14,3 +14,61 @@ spec:
   # persistence:
   #   storageClassName: local-path
   #   storage: 1Gi
+  rabbitmq:
+    additionalPlugins:
+      - rabbitmq_delayed_message_exchange
+    envConfig: |
+      PLUGINS_DIR=/opt/rabbitmq/plugins:/opt/rabbitmq/community-plugins
+  # NodePort로 설정하는 경우에는 포트가 랜덤하게 매핑이 됨
+  # service:
+  #   type: NodePort
+  #
+  # NodePort 타입의 포트를 고정하고 싶은 경우 override 할 수 있음.
+  override:
+    service:
+      spec:
+        type: NodePort
+        ports:
+          - name: amqp
+            protocol: TCP
+            port: 5672
+            targetPort: 5672
+            nodePort: 30672
+          # - name: manager
+          #   protocol: TCP
+          #   port: 15672
+          #   targetPort: 15672
+          #   nodePort: 31672
+    # delayed message exchange plugin 설치(initContainer 이용)
+    statefulSet:
+      spec:
+        template:
+          spec:
+            containers:
+              - name: rabbitmq
+                volumeMounts:
+                  - mountPath: /opt/rabbitmq/community-plugins
+                    name: community-plugins
+            volumes:
+              - name: community-plugins
+                emptyDir: {}
+            initContainers:
+              - command:
+                  - sh
+                  - -c
+                  - curl -L -v https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download/3.10.2/rabbitmq_delayed_message_exchange-3.10.2.ez --output /community-plugins/rabbitmq_delayed_message_exchange-3.10.2.ez
+                  # - curl -L -v http://nexus.kpcard.co.kr/repository/hosted-kpc/rabbitmq/plugins/rabbitmq_delayed_message_exchange-3.10.2.ez --output /community-plugins/rabbitmq_delayed_message_exchange-3.10.2.ez
+                image: curlimages/curl
+                imagePullPolicy: IfNotPresent
+                name: copy-community-plugins
+                resources:
+                  limits:
+                    cpu: 100m
+                    memory: 500Mi
+                  requests:
+                    cpu: 100m
+                    memory: 500Mi
+                terminationMessagePolicy: FallbackToLogsOnError
+                volumeMounts:
+                  - mountPath: /community-plugins/
+                    name: community-plugins

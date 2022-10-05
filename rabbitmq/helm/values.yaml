@@ -1,11 +1,10 @@
 # helm chart values for rabbitmq
-# persistence:
-#   enabled: true
-#   # storageClass: nfs-client
-#   storageClass: local-path
-#   size: 500Mi
+persistence:
+  enabled: true
+  #   # storageClass: nfs-client
+  #   storageClass: local-path
+  size: 500Mi
 nameOverride: cluster
-namespaceOverride: rabbitmq-system
 replicaCount: 3
 ingress:
   enabled: true
@@ -18,3 +17,6 @@ resources:
   limits:
     cpu: 1000m
     memory: 1Gi
+# Additional plugins
+communityPlugins: "https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download/3.10.2/rabbitmq_delayed_message_exchange-3.10.2.ez"
+extraPlugins: "rabbitmq_delayed_message_exchange"

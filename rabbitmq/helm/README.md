@@ -12,7 +12,8 @@ $ helm uninstall -n rabbitmq-system rabbitmq
 ```
 
 ```text
-$ helm install -n rabbitmq-system -f values.yaml rabbitmq bitnami/rabbitmq
+$ kubectl create namespace rabbitmq-helm
+$ helm install -n rabbitmq-helm -f values.yaml rabbitmq bitnami/rabbitmq
 NAME: rabbitmq
 LAST DEPLOYED: Sat Sep 17 08:28:56 2022
 NAMESPACE: rabbitmq-system
@@ -104,4 +105,15 @@ To Access the RabbitMQ Management interface:
    echo "$CLUSTER_IP  mq-admin.k8s.local" | sudo tee -a /etc/hosts
 
 2. Open a browser and access RabbitMQ Management using the obtained URL.
+```
+
+### Additional plugins
+
+> https://stackoverflow.com/questions/64246648/install-extra-rabbitmq-plugin-from-github-using-bitnami-rabbitmq-chart
+
+```yaml
+# Additional plugins(delayed message exchange)
+# https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq
+communityPlugins: "https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download/3.10.2/rabbitmq_delayed_message_exchange-3.10.2.ez"
+extraPlugins: "rabbitmq_delayed_message_exchange"
 ```
