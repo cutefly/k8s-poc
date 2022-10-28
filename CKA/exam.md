@@ -26,20 +26,12 @@ Create Persistent Volume
 - 파일백업 경로 및 복원DB 경로가 터미널임.
 - 백업은 했는데 Restore할 때 Permission denied 오류 발생
 
-서비스 중인 POD에 sidecar 컨테이너 추가
+서비스 중인 POD에 sidecar 컨테이너 추가(busybox image)
 - emptyDir()
 - tail -f
 
-Master node 업그레이드
-- 1.25.1 -> 1.25.2
-- Worker node는 유지
-
-NotReady Node 응급조치
-- kubelet restart
-
-Multi container POD
-- nginx
-- memcached
+(X)Set node unavaliable, recreate pod on it
+- 문제의 의도를 잘 파악하지 못했음
 
 Ingress network
 - /hello mapping
@@ -51,13 +43,20 @@ Network policy
 - Ingress network
 - from namespace(label), allow port
 
+Master node 업그레이드
+- 1.25.1 -> 1.25.2
+- Worker node는 유지
+
+NotReady Node 응급조치
+- kubelet restart
+
 Pod의 Error log
 - kubectl logs
 
 Available node 수
 - control-plane taint 노드 제외
 
-Cluster Role
+Cluster Role(auth can-i)
 - serviceaccount
 - namespace
 - clusterrolebinding
@@ -65,8 +64,9 @@ Cluster Role
 Scale out deployment
 - 2 -> 4 replicas
 
-(X)Set node unavaliable, recreate pod on it
-- 문제의 의도를 잘 파악하지 못했음
+Multi container POD
+- nginx
+- memcached
 
 Top pod monitoring
 - highest cpu usage pod
