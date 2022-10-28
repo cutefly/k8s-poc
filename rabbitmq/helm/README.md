@@ -14,6 +14,7 @@ $ helm uninstall -n rabbitmq-system rabbitmq
 ```text
 $ kubectl create namespace rabbitmq-helm
 $ helm install -n rabbitmq-helm -f values.yaml rabbitmq bitnami/rabbitmq
+$ helm uninstall -n rabbitmq-helm rabbitmq
 NAME: rabbitmq
 LAST DEPLOYED: Sat Sep 17 08:28:56 2022
 NAMESPACE: rabbitmq-system

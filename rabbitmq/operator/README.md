@@ -6,9 +6,11 @@
 $ kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
 
 $ kubectl apply -f cluster-operator.yml
+$ kubectl delete -f cluster-operator.yml
 
 # https://www.rabbitmq.com/kubernetes/operator/using-operator.html#create
 $ kubectl apply -n rabbitmq-system -f rabbitmq-cluster.yaml
+$ kubectl delete -n rabbitmq-system -f rabbitmq-cluster.yaml
 ```
 
 ## client test
