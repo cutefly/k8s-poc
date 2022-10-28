@@ -1,0 +1,16 @@
+# bin/elasticsearch-certutil cert --silent --pem --in tmp/instances.yml -out tmp/bundle.zip
+instances:
+  - name: elasticsearch
+    dns:
+      - elasticsearch
+      - elasticsearch-master
+      - localhost
+  - name: kibana
+    dns:
+      - kibana
+      - kibana-ui
+      - localhost
+  - name: fleet-server
+    dns:
+      - fleet-server
+      - localhost
