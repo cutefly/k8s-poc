@@ -49,3 +49,15 @@ volumes:
     # exports 주소
     path: /opt/nfsshare/nfs-path-provisioner
 ```
+
+### Mac os
+
+```
+ chris@MacBookAir  ~  sudo vi /etc/exports
+ chris@MacBookAir  ~  cat /etc/exports
+/opt/nfsshare -network 192.168.0.0 -mask 255.255.0.0
+ chris@MacBookAir  ~  sudo nfsd restart
+ chris@MacBookAir  ~  showmount -e
+Exports list on localhost:
+/opt/nfsshare                       192.168.0.0
+```
