@@ -1,0 +1,9 @@
+# kubectl -n elastic apply -f kibana.yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kibana
+type: Opaque
+data:
+  encryptionkey: TlpPY1dsSW1sNHU0VWFRYnBjTnRtU2FOWXJSRGtyeDc=
