@@ -44,9 +44,10 @@ services:
       ELASTICSEARCH_USERNAME: kibana_system
       ELASTICSEARCH_PASSWORD: Gu98tYVbXoIxF6Wo9p6N
       ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES: /usr/share/kibana/config/certs/ca.crt
-      SERVER_SSL_ENABLED: "true"
+      SERVER_SSL_ENABLED: "false"
       SERVER_SSL_CERTIFICATE: /usr/share/kibana/config/certs/kibana.crt
       SERVER_SSL_KEY: /usr/share/kibana/config/certs/kibana.key
+      SERVER_PUBLICBASEURL: http://kibana
     networks:
       - elastic
 
