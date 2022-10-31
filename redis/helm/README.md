@@ -1,0 +1,34 @@
+# Redis with helm(Master & replication with sentinel)
+
+> https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster
+
+```sh
+# repository 지정
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+# redis-cluster 설치
+helm install kpcard bitnami/redis-cluster -n redis-cluster --create-namespace -f values.yaml
+
+# redis-cluster 삭제
+helm uninstall kpcard -n redis-cluster
+```
+
+```sh
+# 1. busybox를 이용한 연결 테스트
+$ kubectl run -it --rm busybox --image=busybox --restart=Never --namespace=redis-cluster -- sh
+/ # telnet kpcard-redis-cluster 6379
+Connected to kpcard-redis-cluster
+PING
++PONG
+
+# 2. redis-cli를 이용한 redis command 실행
+$ kubectl run -it --rm redis-cli --image=bitnami/redis:7.0.5 --restart=Never --namespace=redis-cluster -- bash
+I have no name!@redis-cli:/$ redis-cli -h kpcard-redis-cluster
+kpcard-redis-cluster:6379> cluster nodes
+kpcard-redis-cluster:6379> set user1 value
+# master가 아닌 경우 master로 redirect됨
+10.1.1.184:6379> get user1
+
+# cluster nodes 바로 확인
+I have no name!@redis-cli:/$ redis-cli -h kpcard-redis-cluster -c cluster nodes
+```
