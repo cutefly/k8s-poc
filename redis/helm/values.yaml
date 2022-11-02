@@ -2,8 +2,8 @@ usePassword: false
 image:
   tag: 7.0.5
 cluster:
-  nodes: 6
-  replicas: 1
+  nodes: 9
+  replicas: 2
 service:
   type: NodePort
   ports:
