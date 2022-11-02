@@ -40,6 +40,9 @@ $ bin/elasticsearch-certutil cert --silent --pem --in tmp/instances.yml -out tmp
 ## es, kibana 실행
 
 ```sh
+# create network
+$ docker network create elastic
+
 # container start
 $ docker compose up -d
 
@@ -52,7 +55,7 @@ $ docker compose down
 $ docker compose up -d
 ```
 
-### fleet-server
+## fleet-server
 
 > https://www.elastic.co/guide/en/fleet/current/secure-connections.html
 
@@ -74,3 +77,35 @@ $ sudo ./elastic-agent uninstall
 $ sudo service elastic-agent stop
 $ sudo service elastic-agent start
 ```
+
+### fleet-server in container
+
+```sh
+# docker run
+$ docker run --name fleet-server \
+  --rm \
+  --env FLEET_SERVER_ENABLE=true \
+  --env FLEET_SERVER_ELASTICSEARCH_HOST=https://elasticsearch:9200 \
+  --env FLEET_SERVER_SERVICE_TOKEN=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2NjczNzgyOTg4OTk6aUxZd0NYTVVUdC1ZR2NBN1c5ZFNxdw \
+  --env ELASTICSEARCH_CA=/usr/share/elastic-agent/certs/ca.crt \
+  --env FLEET_SERVER_ELASTICSEARCH_CA=/usr/share/elastic-agent/certs/ca.crt \
+  --env FLEET_SERVER_INSECURE_HTTP=true \
+  --volume ${PWD}/certs:/usr/share/elastic-agent/certs \
+  --publish 8220:8220 \
+  --network elastic \
+  docker.elastic.co/beats/elastic-agent:7.17.6
+
+# https://kifarunix.com/ship-system-logs-to-elk-stack-using-elastic-agents/
+# 마지막 스텝에서 fleet settings에 Elasticsearch output configuration(YAML)에 cert file 경로 지정
+# ssl.certificate_authorities: ['/usr/share/elastic-agent/certs/ca.crt']
+# 모든 Agent에 동일하게 적용되므로 해당 경로에 파일이 있어야 함(?)
+
+# health check
+$ curl http://localhost:8220/api/status
+
+sudo ./elastic-agent install --url=http://fleet-server:8220 --insecure --enrollment-token=MnVyd0hZUUJGcDE0MU9OSW1UczY6MzVnd3hRMWVTVnE1UmxhMlFWZzEwQQ==
+```
+
+docker run --name fleet-server \
+  --rm \
+  docker.elastic.co/beats/elastic-agent:7.17.6
