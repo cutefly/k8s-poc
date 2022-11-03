@@ -1,0 +1,17 @@
+image:
+  tag: 5.0.13
+architecture: replicaset
+replicaCount: 3
+auth:
+  enabled: true
+  rootUser: kpcadmin
+  rootPassword: kpcard
+replicaSetName: MainRepSet
+externalAccess:
+  enabled: true
+  service:
+    type: NodePort
+    nodePorts:
+      - 30017
+      - 30018
+      - 30019

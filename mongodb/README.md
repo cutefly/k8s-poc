@@ -48,7 +48,8 @@ $ kubectl run -it --rm busybox --image=busybox --restart=Never --namespace=mongo
 ping mongodb-0.mongodb.mongodb-system.svc.cluster.local
 ```
 
-```
+
+```sh
 $ kubectl exec -it -n mongodb-system mongodb-0 -- mongo
 
 # initialize mongodb cluster
