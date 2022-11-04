@@ -19,30 +19,4 @@ $ kubectl run -it --rm mongosh --image=mongo --restart=Never --namespace=mongodb
 kubectl exec -it -n mongodb-cluster kpcard-mongodb-0 -- mongosh
 
 kpcard-mongodb-0.kpcard-mongodb-headless.mongodb-cluster.svc.cluster.local
-
-rs.initiate({
-_id: "MainRepSet",
-members: [
-    { _id: 0, host: "kpcard-mongodb-0.kpcard-mongodb-headless.mongodb-cluster.svc.cluster.local:27017"
-    },
-    { _id: 1, host: "kpcard-mongodb-1.kpcard-mongodb-headless.mongodb-cluster.svc.cluster.local:27017"
-    },
-    { _id: 2, host: "kpcard-mongodb-2.kpcard-mongodb-headless.mongodb-cluster.svc.cluster.local:27017"
-    }]
-})
-
-rs.initiate({
-_id: "MainRepSet",
-members: [
-    { _id: 0, host: "192.168.65.4:30017"
-    },
-    { _id: 1, host: "192.168.65.4:30018"
-    },
-    { _id: 2, host: "192.168.65.4:30019"
-    }]
-})
-
-rs.add("192.168.65.4:30018")
-rs.add("192.168.65.4:30019")
-
 ```

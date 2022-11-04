@@ -1,5 +1,5 @@
 image:
-  tag: 5.0.13
+  tag: 5.0.13-debian-11-r12
 architecture: replicaset
 replicaCount: 3
 auth:
@@ -15,3 +15,13 @@ externalAccess:
       - 30017
       - 30018
       - 30019
+    domain: docker-desktop
+  # hidden:
+  #   enabled: true
+  #   service:
+  #     type: NodePort
+  #     nodePorts:
+  #       - 30017
+  #       - 30018
+  #       - 30019
+  #     domain: xps13plus
