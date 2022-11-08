@@ -11,10 +11,14 @@ helm install kpcard bitnami/mongodb -n mongodb-cluster --create-namespace -f val
 helm upgrade kpcard bitnami/mongodb -n mongodb-cluster --create-namespace -f values.yaml
 
 # mongodb-cluster 삭제
-helm uninstall kpcard -n mongodb-cluster
+$ helm uninstall kpcard -n mongodb-cluster
+$ kubectl -n mongodb-cluster delete pvc --all
+
+# busy box
+$ kubectl run -it --rm busybox --image=busybox --restart=Never --namespace=mongodb-cluster -- sh
 
 # temporary mongosh
-$ kubectl run -it --rm mongosh --image=mongo --restart=Never --namespace=mongodb-cluster -- bash
+$ kubectl run -it --rm mongosh --image=mongo:5 --restart=Never --namespace=mongodb-cluster -- bash
 
 kubectl exec -it -n mongodb-cluster kpcard-mongodb-0 -- mongosh
 

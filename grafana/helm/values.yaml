@@ -1,0 +1,39 @@
+# configure ingress nginx
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  hosts:
+    - "grafana.k8s.local"
+# default account
+adminUser: admin
+adminPassword: kpcard1@
+# default datasources
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus.lens-metrics.svc.cluster.local/
+        access: proxy
+        isDefault: true
+# default dashboard
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: "default"
+        orgId: 1
+        folder: ""
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+dashboards:
+  default:
+    kubernetes-dashboard:
+      gnetId: 13770
+      revision: 1
+      datasource: Prometheus
