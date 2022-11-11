@@ -2,6 +2,8 @@
 
 > https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster
 
+## installation
+
 ```sh
 # repository 지정
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -13,6 +15,8 @@ helm upgrade kpcard bitnami/redis-cluster -n redis-cluster --create-namespace -f
 # redis-cluster 삭제
 helm uninstall kpcard -n redis-cluster
 ```
+
+# Test
 
 ```sh
 # 1. busybox를 이용한 연결 테스트
@@ -34,9 +38,17 @@ kpcard-redis-cluster:6379> set user1 value
 I have no name!@redis-cli:/$ redis-cli -h kpcard-redis-cluster -c cluster nodes
 ```
 
+## Monitoring
+
+```yaml
+metrics:
+  enabled: true
+```
+
 ### Note
 
 ```
+TO DO:
 Redis cluster를 외부에서 사용하기 위해서는 LoadBalancer를 이용한 NodeType이 정의되어야 함.
 Redis cluster내의 Node들의 Public한 주소를 가지고 있어야 client가 cluster 모드로 동작할 수 있음.
 

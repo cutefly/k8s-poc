@@ -1,0 +1,7 @@
+nodeExporter:
+  hostRootfs: false
+# extraScrapeConfigs: |
+#   - job_name: "mongodb-exporter"
+#     static_configs:
+#       - targets:
+#           - kpcard-mongodb-metrics.mongodb-cluster.svc.cluster.local:9216

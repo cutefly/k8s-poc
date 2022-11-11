@@ -8,6 +8,10 @@ ingress:
 # default account
 adminUser: admin
 adminPassword: kpcard1@
+persistence:
+  type: pvc
+  enabled: true
+  # storageClass: ""
 # default datasources
 datasources:
   datasources.yaml:
@@ -15,7 +19,8 @@ datasources:
     datasources:
       - name: Prometheus
         type: prometheus
-        url: http://prometheus.lens-metrics.svc.cluster.local/
+        url: http://lens-prometheus-server.monitoring.svc.cluster.local/
+        # url: http://prometheus.lens-metrics.svc.cluster.local/
         access: proxy
         isDefault: true
 # default dashboard
@@ -35,5 +40,13 @@ dashboards:
   default:
     kubernetes-dashboard:
       gnetId: 13770
+      revision: 1
+      datasource: Prometheus
+    mongodb-dashboard:
+      gnetId: 2583
+      revision: 2
+      datasource: Prometheus
+    redis-dashboard:
+      gnetId: 11835
       revision: 1
       datasource: Prometheus

@@ -2,6 +2,8 @@
 
 > https://docs.bitnami.com/kubernetes/infrastructure/mongodb/get-started/install/
 
+## installation
+
 ```sh
 # repository 지정
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -21,6 +23,24 @@ $ kubectl run -it --rm busybox --image=busybox --restart=Never --namespace=mongo
 $ kubectl run -it --rm mongosh --image=mongo:5 --restart=Never --namespace=mongodb-cluster -- bash
 
 kubectl exec -it -n mongodb-cluster kpcard-mongodb-0 -- mongosh
-
 kpcard-mongodb-0.kpcard-mongodb-headless.mongodb-cluster.svc.cluster.local
+```
+
+## NodePort 설정
+
+```
+service:
+  type: NodePort
+  ports:
+    redis: 6379
+  # port range(30000~32767)
+  nodePorts:
+    redis: 32379
+```
+
+## Monitoring 설정(Prometheus)
+
+```yaml
+metrics:
+  enabled: true
 ```
