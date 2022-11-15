@@ -10,7 +10,7 @@ adminUser: admin
 adminPassword: kpcard1@
 persistence:
   type: pvc
-  enabled: true
+  enabled: false
   # storageClass: ""
 # default datasources
 datasources:
@@ -19,7 +19,7 @@ datasources:
     datasources:
       - name: Prometheus
         type: prometheus
-        url: http://lens-prometheus-server.monitoring.svc.cluster.local/
+        url: http://kpc-prometheus-server.monitoring.svc.cluster.local/
         # url: http://prometheus.lens-metrics.svc.cluster.local/
         access: proxy
         isDefault: true

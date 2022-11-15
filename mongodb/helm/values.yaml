@@ -7,10 +7,15 @@ auth:
   rootUser: kpcadmin
   rootPassword: kpcard
 replicaSetName: MainRepSet
+# 동시에 파드 생성(기본값은 OrderedReady)
+# podManagementPolicy: Parallel
+#
+# Disable Liveness Probe(기본값은 true)
 # livenessProbe:
 #   enabled: false
-# readinessProbe:
-#   enabled: false
+# Disable Readiness Probe(기본값은 true)
+readinessProbe:
+  enabled: false
 arbiter:
   enabled: false
 externalAccess:

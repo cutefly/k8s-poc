@@ -2,6 +2,13 @@ apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
   name: rabbitmq
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "15692"
+    # - name: prometheus
+    #   containerPort: 15692
+    #   protocol: TCP
 spec:
   replicas: 3
   resources:
