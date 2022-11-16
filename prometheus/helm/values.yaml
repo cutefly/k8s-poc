@@ -5,7 +5,7 @@ server:
     hosts: 
       - prometheus.k8s.local
 nodeExporter:
-  hostRootfs: false
+  hostRootfs: true
 # extraScrapeConfigs: |
 #   - job_name: "mongodb-exporter"
 #     static_configs:

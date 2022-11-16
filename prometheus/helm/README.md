@@ -1,5 +1,4 @@
-helm repo add prometheus-community https://prometheus-comm
-unity.github.io/helm-charts
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 
 helm install kpc prometheus-community/prometheus -n monitoring --create-namespace -f values.yaml
 helm uninstall kpc -n monitoring
@@ -9,7 +8,7 @@ nodeExporter:
 hostRootfs: false
 
 추가설정
-http://lens-prometheus-server.monitoring.svc.cluster.local/
+http://kpc-prometheus-server.monitoring.svc.cluster.local/
 kpcard-mongodb-metrics.mongodb-cluster.svc.cluster.local
 exporter 추가를 위해 annotation을 추가
 
