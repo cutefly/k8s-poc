@@ -11,7 +11,7 @@ adminPassword: kpcard1@
 persistence:
   type: pvc
   enabled: false
-  # storageClass: ""
+  # storageClassName: ""
 # default datasources
 datasources:
   datasources.yaml:

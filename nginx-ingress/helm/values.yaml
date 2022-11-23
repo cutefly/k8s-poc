@@ -4,3 +4,9 @@ controller:
     nodePorts:
       http: 32080
       https: 32443
+  metrics:
+    enabled: true
+    service:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "10254"

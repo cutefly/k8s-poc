@@ -4,8 +4,9 @@ server:
     ingressClassName: nginx
     hosts: 
       - prometheus.k8s.local
-nodeExporter:
-  hostRootfs: true
+# Windows에서는 htstRootfs를 false로
+# nodeExporter:
+#   hostRootfs: false
 # extraScrapeConfigs: |
 #   - job_name: "mongodb-exporter"
 #     static_configs:

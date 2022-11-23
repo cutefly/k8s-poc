@@ -33,7 +33,7 @@ ingress:
 persistence:
   type: pvc
   enabled: true
-  # storageClass: ""
+  # storageClassName: ""
 ```
 
 ## 기타
