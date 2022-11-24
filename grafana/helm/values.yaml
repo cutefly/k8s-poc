@@ -5,6 +5,7 @@ ingress:
     kubernetes.io/ingress.class: "nginx"
   hosts:
     - "grafana.k8s.local"
+    - "grafana.kpcard.co.kr"
 # default account
 adminUser: admin
 adminPassword: kpcard1@

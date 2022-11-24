@@ -9,7 +9,7 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 
 helm install kpc grafana/grafana --namespace grafana --create-namespace -f values.yaml
-helm upgrade kpc grafana/grafana --namespace grafana --create-namespace -f values.yaml
+helm upgrade kpc grafana/grafana -n grafana -f values.yaml
 
 $ helm uninstall kpc -n grafana
 

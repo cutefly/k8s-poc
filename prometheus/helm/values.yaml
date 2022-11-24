@@ -4,6 +4,7 @@ server:
     ingressClassName: nginx
     hosts: 
       - prometheus.k8s.local
+      - prometheus.kpcard.co.kr
 # Windows에서는 htstRootfs를 false로
 # nodeExporter:
 #   hostRootfs: false
