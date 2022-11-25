@@ -70,3 +70,19 @@ _vtOVmhMCkK7HpXlLB96aCpUvXFpzjDC
 ### How to install plugin
 
 > https://github.com/rabbitmq/cluster-operator/blob/main/docs/examples/community-plugins/rabbitmq.yaml
+
+### Prometheus monitoring
+
+<https://www.rabbitmq.com/kubernetes/operator/using-operator.html#internal-labels>
+
+```yaml
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmq
+  # annotations 추가
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "15692"
+```

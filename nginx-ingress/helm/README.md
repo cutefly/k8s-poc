@@ -43,3 +43,7 @@ $ helm uninstall ingress-nginx --namespace ingress-nginx
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.1/deploy/static/provider/baremetal/deploy.yaml
 
 ```
+
+## monitoring(grafana dashboard)
+
+> <https://grafana.com/grafana/dashboards/9614-nginx-ingress-controller/>

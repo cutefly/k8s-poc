@@ -25,6 +25,15 @@ $ docker run --name oap-ui \
   apache/skywalking-ui:9.2.0
 ```
 
+## setup with h2(docker compose)
+
+```sh
+$ docker compose up -d
+
+# Skywalking UI
+http://localhost:8080
+```
+
 ## setup with ElasticSearch
 
 ```sh
