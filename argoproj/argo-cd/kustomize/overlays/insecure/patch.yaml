@@ -34,6 +34,7 @@ data:
   policy.csv: |
     p, role:devuser, applications, *, */*, allow
     p, role:devuser, clusters, get, *, allow
+    p, role:devuser, projects, get, *, allow
     p, role:devuser, repositories, get, *, allow
     p, role:devuser, repositories, create, *, allow
     p, role:devuser, repositories, update, *, allow
