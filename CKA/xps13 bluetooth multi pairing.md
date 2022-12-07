@@ -13,9 +13,9 @@ https://www.youtube.com/watch?v=BprSnu6KWTA&t=249s
 ### 마우스 적용 예시
 
 ```
-Devide : D7:8A:FE:1C:3B:9D
-리눅스에 페이렁된 Device 아이디가 다른 경우 폴더면 Rename
-(pairing을 다시 하는 경우 Device 아디가 변경되는 장비가 있음)
+Device : D7:8A:FE:1C:3B:9D
+리눅스에 페이링된 Device 아이디가 다른 경우 폴더면 Rename
+(pairing을 다시 하는 경우 Device 아이디가 변경되는 장비가 있음)
 
 IRK : (Hexa 값을 대문자로)
 SRC : 00000000   c2 7c 77 0d 01 60 f4 f4 - 5e 89 4c 09 e4 79 7c 60
