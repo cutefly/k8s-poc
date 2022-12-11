@@ -1,6 +1,6 @@
 # MongoDB with helm
 
-> https://docs.bitnami.com/kubernetes/infrastructure/mongodb/get-started/install/
+> <https://docs.bitnami.com/kubernetes/infrastructure/mongodb/get-started/install/>
 
 ## installation
 
@@ -28,7 +28,7 @@ kpcard-mongodb-0.kpcard-mongodb-headless.mongodb-cluster.svc.cluster.local
 
 ## NodePort 설정
 
-```
+```yaml
 service:
   type: NodePort
   ports:
@@ -61,7 +61,7 @@ metrics:
 
 ### 재시작 후 정상 동작이 불가한 경우 조치 방안
 
-```
+```sh
 # Priority를 변경하여 Replication Set이 재구성되도록 함.
 # https://stackoverflow.com/questions/47439781/mongodb-replica-set-member-state-is-other
 $ kubectl run -it --rm mongosh --image=mongo:5 --restart=Never --namespace=mongodb-cluster -- bash

@@ -2,8 +2,8 @@
 
 ## Install ingress controller
 
-- https://kubernetes.github.io/ingress-nginx/deploy/#quick-start
-https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
+- <https://kubernetes.github.io/ingress-nginx/deploy/#quick-start>
+- <https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml>
 
 ```sh
 

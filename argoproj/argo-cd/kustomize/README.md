@@ -15,4 +15,3 @@ kubectl kustomize overlays/insecure
 ## apply insecure argocd
 
 kubectl kustomize overlays/insecure | kubectl apply -f -
-

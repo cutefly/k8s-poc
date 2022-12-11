@@ -48,9 +48,9 @@ Treasure Data
 
 ### CDP 참고 URL
 
-> https://www.thedigitalmkt.com/customer-data-platform/
-https://www.ciokorea.com/news/236214
-https://www.2e.co.kr/news/articleView.html?idxno=207180
+- <https://www.thedigitalmkt.com/customer-data-platform/>
+- <https://www.ciokorea.com/news/236214>
+- <https://www.2e.co.kr/news/articleView.html?idxno=207180>
 
 ## 관련 용어
 
@@ -148,4 +148,4 @@ Load : 데이터 적재
 
 ### 참고 URL
 
-> https://www.tibco.com/ko/reference-center/what-is-etl
+> <https://www.tibco.com/ko/reference-center/what-is-etl>

@@ -2,7 +2,7 @@
 
 ## Prepare minikube cluster
 
-```
+```sh
 minikube start -p argoproj - 1.2G
 minikube profile argoproj
 
@@ -14,7 +14,7 @@ minikube addons enable ingress
 
 ### 1. Install Argo CD
 
-```
+```sh
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
@@ -34,9 +34,9 @@ data:
   server.insecure: "true"
 ```
 
-# redepoly argocd-service
+## redepoly argocd-service
 
-```
+```sh
 # install argocd insecure mode
 $ kubectl apply -n argocd -f argo-cd/install.yaml - 1.8G
 
@@ -51,13 +51,13 @@ https://argocd.prepaidcard.co.kr/
 
 ### 2. Download Argo CD CLI
 
-```
+```sh
 brew install argocd
 ```
 
 ### 3. Access The Argo CD API Server
 
-```
+```sh
 # Load Balance
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "ClusterIP"}}'
@@ -68,16 +68,15 @@ minikube tunnel
 
 ### 4. Login Using The CLI
 
-```
-$ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-
-$ argocd login 127.0.0.1
-$ argocd account update-password
+```sh
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+argocd login 127.0.0.1
+argocd account update-password
 ```
 
 ### 5. Add User
 
-> https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/
+> <https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/>
 
 ```yaml
 apiVersion: v1
@@ -127,20 +126,19 @@ data:
 
 ## Argo Rollouts
 
-> https://argoproj.github.io/argo-rollouts/getting-started/
-
-> https://argoproj.github.io/argo-rollouts/getting-started/nginx/
+> <https://argoproj.github.io/argo-rollouts/getting-started/>
+> <https://argoproj.github.io/argo-rollouts/getting-started/nginx/>
 
 ### Controller Installation
 
-```
+```sh
 kubectl create namespace argo-rollouts
 kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
 ```
 
 ### Kubectl Plugin Installation
 
-```
+```sh
 brew install argoproj/tap/kubectl-argo-rollouts
 ```
 
@@ -148,7 +146,7 @@ brew install argoproj/tap/kubectl-argo-rollouts
 
 ### Canary strategy
 
-```
+```sh
 kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master/docs/getting-started/nginx/rollout.yaml
 kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master/docs/getting-started/nginx/services.yaml
 kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master/docs/getting-started/nginx/ingress.yaml
@@ -157,12 +155,12 @@ kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-rollouts/master
 kubectl apply -f argo-rollouts/canary/
 ```
 
-```
+```sh
 # check status
 kubectl argo rollouts get rollout rollouts-demo
 ```
 
-```
+```sh
 # perform an update
 kubectl argo rollouts set image rollouts-demo rollouts-demo=argoproj/rollouts-demo:yellow
 kubectl argo rollouts get rollout rollouts-demo
@@ -180,15 +178,15 @@ kubectl argo rollouts abort rollouts-demo
 kubectl argo rollouts set image rollouts-demo rollouts-demo=argoproj/rollouts-demo:yellow
 ```
 
-```
-# UI Dashboard
+### UI Dashboard
 
+```sh
 kubectl argo rollouts dashboard
 ```
 
 ### Bluegreen strategy
 
-```
+```sh
 # ingress upgrade
 kubectl apply -f argo-rollouts/bluegreen/
 kubectl argo rollouts promote rollout-bluegreen
