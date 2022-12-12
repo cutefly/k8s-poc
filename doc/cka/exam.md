@@ -2,7 +2,7 @@
 
 ## 시험준비
 
-```
+```text
 - 시험비: $395 -> $256.75(35% discount)
 - PSI bridge
 - take picture of ID card and face
@@ -15,7 +15,7 @@
 
 ## 기출문제
 
-```
+```text
 Create Persistent Volume
 - classname: csi...
 - 2Gi
@@ -89,7 +89,7 @@ pv, pvc
 
 ## 참고사항
 
-```
+```text
 Don't panic
 일단 완전하지 않은 문제는 패스 후 나중에 다시 푼다
 직접 yaml을 만들지 않고 "--dry-run=client -o yaml"로 파일 생성
