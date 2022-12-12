@@ -1,0 +1,31 @@
+POSA : CP, AP 전환
+(*) CP Daemon, Admin 이관
+AP => 지연
+쿠폰 플랫폼
+Kaspersky =>
+
+팔라고 : 
+(*) 데이터 통합 v2 마이그레이션
+DB 튜닝
+
+Krypton : 
+모바일팝 :
+간편휴대폰 충전
+(*) NAS 구조 개편
+오픈뱅킹 : 퍼블리싱
+
+모바일
+제주올레 모의해킹
+(*) 올레패스 - 쿠폰서비스
+
+인프라보안
+금취분평, 취약점분석, 모의해킹
+(*) L4 스위치 MSS 변경
+
+DBMS
+Oracle : EMP 계정 삭제
+MS-SQL 업그레이드
+
+12월 PM 없음
+
+https://www.mongodb.com/docs/v5.0/tutorial/change-oplog-size/
