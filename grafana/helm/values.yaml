@@ -11,43 +11,43 @@ adminUser: admin
 adminPassword: kpcard1@
 persistence:
   type: pvc
-  enabled: false
+  enabled: true
   # storageClassName: ""
-# default datasources
-datasources:
-  datasources.yaml:
-    apiVersion: 1
-    datasources:
-      - name: Prometheus
-        type: prometheus
-        url: http://kpc-prometheus-server.monitoring.svc.cluster.local/
-        # url: http://prometheus.lens-metrics.svc.cluster.local/
-        access: proxy
-        isDefault: true
-# default dashboard
-dashboardProviders:
-  dashboardproviders.yaml:
-    apiVersion: 1
-    providers:
-      - name: "default"
-        orgId: 1
-        folder: ""
-        type: file
-        disableDeletion: false
-        editable: true
-        options:
-          path: /var/lib/grafana/dashboards/default
-dashboards:
-  default:
-    kubernetes-dashboard:
-      gnetId: 13770
-      revision: 1
-      datasource: Prometheus
-    mongodb-dashboard:
-      gnetId: 2583
-      revision: 2
-      datasource: Prometheus
-    redis-dashboard:
-      gnetId: 11835
-      revision: 1
-      datasource: Prometheus
+# # default datasources
+# datasources:
+#   datasources.yaml:
+#     apiVersion: 1
+#     datasources:
+#       - name: Prometheus
+#         type: prometheus
+#         url: http://kpc-prometheus-server.monitoring.svc.cluster.local/
+#         # url: http://prometheus.lens-metrics.svc.cluster.local/
+#         access: proxy
+#         isDefault: true
+# # default dashboard
+# dashboardProviders:
+#   dashboardproviders.yaml:
+#     apiVersion: 1
+#     providers:
+#       - name: "default"
+#         orgId: 1
+#         folder: ""
+#         type: file
+#         disableDeletion: false
+#         editable: true
+#         options:
+#           path: /var/lib/grafana/dashboards/default
+# dashboards:
+#   default:
+#     kubernetes-dashboard:
+#       gnetId: 13770
+#       revision: 1
+#       datasource: Prometheus
+#     mongodb-dashboard:
+#       gnetId: 2583
+#       revision: 2
+#       datasource: Prometheus
+#     redis-dashboard:
+#       gnetId: 11835
+#       revision: 1
+#       datasource: Prometheus
