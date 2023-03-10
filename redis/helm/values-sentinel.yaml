@@ -1,0 +1,12 @@
+fullnameOverride: "redis"
+image:
+  tag: 7.0.9
+auth:
+  password: a-very-complex-password-here
+sentinel:
+  enabled: true
+  image:
+    tag: 7.0.9
+  masterSet: sentinel-master
+metrics:
+  enabled: true

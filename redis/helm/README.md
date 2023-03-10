@@ -14,6 +14,14 @@ helm upgrade kpcard bitnami/redis-cluster -n redis-cluster --create-namespace -f
 
 # redis-cluster 삭제
 helm uninstall kpcard -n redis-cluster
+
+# redis-sentinel 설치
+helm install redis-sentinel bitnami/redis -n redis --create-namespace -f values-sentinel.yaml
+helm upgrade redis-sentinel bitnami/redis -n redis --create-namespace -f values-sentinel.yaml
+
+# redis-cluster 삭제
+helm uninstall redis-sentinel -n redis
+
 ```
 
 # Test
