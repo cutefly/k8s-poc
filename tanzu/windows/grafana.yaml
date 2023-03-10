@@ -1,0 +1,7 @@
+# tanzu package install grafana --package-name grafana.community.tanzu.vmware.com --version 7.5.11 --values-file grafana.yaml
+grafana:
+  #! Grafana service configuration
+  service:
+    type: NodePort
+    port: 80
+    targetPort: 3000
