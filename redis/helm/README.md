@@ -16,11 +16,11 @@ helm upgrade kpcard bitnami/redis-cluster -n redis-cluster --create-namespace -f
 helm uninstall kpcard -n redis-cluster
 
 # redis-sentinel 설치
-helm install redis-sentinel bitnami/redis -n redis --create-namespace -f values-sentinel.yaml
-helm upgrade redis-sentinel bitnami/redis -n redis --create-namespace -f values-sentinel.yaml
+helm install redis-sentinel bitnami/redis -n redis-sentinel --create-namespace -f values-sentinel.yaml
+helm upgrade redis-sentinel bitnami/redis -n redis-sentinel --create-namespace -f values-sentinel.yaml
 
 # redis-cluster 삭제
-helm uninstall redis-sentinel -n redis
+helm uninstall redis-sentinel -n redis-sentinel
 
 ```
 
@@ -35,7 +35,7 @@ PING
 +PONG
 
 # 2. redis-cli를 이용한 redis command 실행
-$ kubectl run -it --rm redis-cli --image=bitnami/redis:7.0.5 --restart=Never --namespace=redis-cluster -- bash
+$ kubectl run -it --rm redis-cli --image=bitnami/redis:7.0.9 --restart=Never --namespace=redis-cluster -- bash
 I have no name!@redis-cli:/$ redis-cli -h kpcard-redis-cluster -c
 kpcard-redis-cluster:6379> cluster nodes
 kpcard-redis-cluster:6379> set user1 value
