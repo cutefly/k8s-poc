@@ -1,15 +1,21 @@
-# haproxy를 이용한 Redis sentinel access
-# Master(RW) Port : 6379
-# Round robin(RO) Port : 6380
+# haproxy를 이용한 redis sentinel, mongodb cluster access
+# Master(RW) Port : 6379, 27017
+# Round robin(RO) Port : 6380, 27018
 #
 # https://yaniv-bhemo.medium.com/how-to-setup-haproxy-for-redis-sentinel-on-kubernetes-37ee70e44464
 # https://github.com/yanivbhemo/haproxy-redis
+# https://www.techbeginner.in/2022/08/configure-haproxy-with-mongodb-master-slave-load-balancer-on-ubuntu-22-04-lts.html
 #
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: haproxy
+---
 apiVersion: /v1
 kind: Service
 metadata:
   name: haproxy
-  namespace: redis-sentinel
+  namespace: haproxy
 spec:
   type: NodePort
   ports:
@@ -39,7 +45,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: haproxy-config
-  namespace: redis-sentinel
+  namespace: haproxy
 data:
   haproxy.cfg: |
     global
@@ -180,7 +186,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: haproxy
-  namespace: redis-sentinel
+  namespace: haproxy
   labels:
     app: haproxy
 spec:
@@ -221,3 +227,24 @@ spec:
       - name: config
         configMap:
           name: haproxy-config
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: haproxy-ingress
+  namespace: haproxy
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: haproxy.k8s.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: haproxy
+            port: 
+              name: dashboard
