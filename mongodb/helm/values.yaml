@@ -1,3 +1,4 @@
+fullnameOverride: "mongodb"
 image:
   tag: 5.0.13-debian-11-r12
 architecture: replicaset
@@ -18,14 +19,14 @@ readinessProbe:
   enabled: false
 arbiter:
   enabled: false
-externalAccess:
-  enabled: true
-  service:
-    type: NodePort
-    nodePorts:
-      - 32017
-      - 32018
-      - 32019
-    domain: docker-desktop
+# externalAccess:
+#   enabled: true
+#   service:
+#     type: NodePort
+#     nodePorts:
+#       - 32017
+#       - 32018
+#       - 32019
+#     domain: docker-desktop
 metrics:
   enabled: true
