@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-cmd-params-cm
+    app.kubernetes.io/part-of: argocd
+  name: argocd-cmd-params-cm
+data:
+  server.insecure: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+  name: argocd-cm
+data:
+  # add an additional local user with apiKey and login capabilities
+  #   apiKey - allows generating API keys
+  #   login - allows to login using UI
+  accounts.devuser: apiKey, login
+  # disables user. User is enabled by default
+  # accounts.devuser.enabled: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-rbac-cm
+    app.kubernetes.io/part-of: argocd
+  name: argocd-rbac-cm
+data:
+  policy.csv: |
+    p, role:devuser, applications, *, */*, allow
+    p, role:devuser, clusters, get, *, allow
+    p, role:devuser, projects, get, *, allow
+    p, role:devuser, repositories, get, *, allow
+    p, role:devuser, repositories, create, *, allow
+    p, role:devuser, repositories, update, *, allow
+    p, role:devuser, repositories, delete, *, allow
+    g, devuser, role:devuser

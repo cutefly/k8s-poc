@@ -9,11 +9,11 @@
 helm repo add bitnami https://charts.bitnami.com/bitnami
 
 # mongodb-cluster 설치
-helm install kpcard bitnami/mongodb -n mongodb-cluster --create-namespace -f values.yaml
-helm upgrade kpcard bitnami/mongodb -n mongodb-cluster --create-namespace -f values.yaml
+helm install mongodb bitnami/mongodb -n mongodb-cluster --create-namespace -f values.yaml
+helm upgrade mongodb bitnami/mongodb -n mongodb-cluster --create-namespace -f values.yaml
 
 # mongodb-cluster 삭제
-$ helm uninstall kpcard -n mongodb-cluster
+$ helm uninstall mongodb -n mongodb-cluster
 $ kubectl -n mongodb-cluster delete pvc --all
 
 # busy box
@@ -22,7 +22,7 @@ $ kubectl run -it --rm busybox --image=busybox --restart=Never --namespace=mongo
 # temporary mongosh
 $ kubectl run -it --rm mongosh --image=mongo:5 --restart=Never --namespace=mongodb-cluster -- bash
 
-kubectl exec -it -n mongodb-cluster kpcard-mongodb-0 -- mongosh
+kubectl exec -it -n mongodb-cluster mongodb-0 -- mongosh
 kpcard-mongodb-0.kpcard-mongodb-headless.mongodb-cluster.svc.cluster.local
 ```
 
@@ -64,7 +64,7 @@ metrics:
 ```sh
 # Priority를 변경하여 Replication Set이 재구성되도록 함.
 # https://stackoverflow.com/questions/47439781/mongodb-replica-set-member-state-is-other
-$ kubectl run -it --rm mongosh --image=mongo:5 --restart=Never --namespace=mongodb-cluster -- bash
+$ kubectl run -it --rm mongosh --image=bitnami/mongodb:5.0.13-debian-11-r12 --restart=Never --namespace=mongodb-cluster -- bash
 
 /# mongosh --host docker-desktop --port 32017 -u kpcadmin -p kpcard
 cfg = rs.conf()

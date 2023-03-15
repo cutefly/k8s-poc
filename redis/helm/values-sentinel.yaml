@@ -1,0 +1,30 @@
+fullnameOverride: "redis"
+image:
+  tag: 7.0.9
+auth:
+  password: a-very-complex-password-here
+master:
+  count: 1
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 256Mi
+    requests: 
+      cpu: 50m
+      memory: 10Mi
+replica:
+  replicaCount: 3
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 256Mi
+    requests: 
+      cpu: 50m
+      memory: 10Mi
+sentinel:
+  enabled: true
+  image:
+    tag: 7.0.9
+  masterSet: sentinel-master
+metrics:
+  enabled: true
