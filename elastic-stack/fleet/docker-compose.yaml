@@ -10,11 +10,15 @@ services:
     user: root # note, synthetic browser monitors require this set to `elastic-agent`
     environment:
       - ELASTICSEARCH_HOST=https://elasticsearch:9200
-      - ELASTICSEARCH_USERNAME=elastic
-      - ELASTICSEARCH_PASSWORD=np0lB2RBCijOZb1bEOiL
+      # - ELASTICSEARCH_USERNAME=elastic
+      # - ELASTICSEARCH_PASSWORD=np0lB2RBCijOZb1bEOiL
       - ELASTICSEARCH_CA=/usr/share/elastic-agent/certs/ca.crt
       - FLEET_SERVER_ENABLE=1
-      - FLEET_SERVER_SERVICE_TOKEN=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2NzEwNjY3OTMwNzI6NURtYlJyUkZTOC1YM3lrQ0JyYVptQQ
+      # dell xps linux
+      # - FLEET_SERVER_SERVICE_TOKEN=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2NzEwNjY3OTMwNzI6NURtYlJyUkZTOC1YM3lrQ0JyYVptQQ
+      # macbook air
+      - FLEET_SERVER_ELASTICSEARCH_HOST=https://elasticsearch:9200
+      - FLEET_SERVER_SERVICE_TOKEN=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE2NzEwMTMzNzIwMzU6T082a1QxTjJULUd0dkhSaHNDM1RHdw
       - FLEET_SERVER_HOST=fleet-server
       - FLEET_SERVER_PORT=8220
       - FLEET_SERVER_INSECURE_HTTP=true
@@ -24,3 +28,11 @@ services:
 networks:
   elastic:
     external: true
+
+# for mac
+# sudo ./elastic-agent install --url=http://fleet-server:8220 --insecure --enrollment-token=anlnY0VJVUJDb1hIVi05SzhsWVU6dG1rSG5IUmNRTHVrcFkyMkxLTlNGQQ==
+# start service
+# sudo launchctl load /Library/LaunchDaemons/co.elastic.elastic-agent.plist
+# stop service
+# sudo launchctl unload /Library/LaunchDaemons/co.elastic.elastic-agent.plist
+
