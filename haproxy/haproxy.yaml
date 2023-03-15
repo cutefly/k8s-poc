@@ -11,17 +11,28 @@ kind: Namespace
 metadata:
   name: haproxy
 ---
-apiVersion: /v1
+apiVersion: v1
 kind: Service
 metadata:
-  name: haproxy
+  name: haproxy-dashboard
   namespace: haproxy
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: dashboard
       port: 8080
       targetPort: 8080
+  selector:
+    app: haproxy
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: haproxy
+spec:
+  type: NodePort
+  ports:
     - name: redis-write
       port: 6379
       targetPort: 6379
@@ -30,6 +41,17 @@ spec:
       port: 6380
       targetPort: 6380
       nodePort: 30380
+  selector:
+    app: haproxy
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  namespace: haproxy
+spec:
+  type: NodePort
+  ports:
     - name: mongodb-write
       port: 27017
       targetPort: 27017
