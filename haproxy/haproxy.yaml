@@ -16,6 +16,9 @@ kind: Service
 metadata:
   name: haproxy-dashboard
   namespace: haproxy
+  annotations:
+    prometheus.io/port: '8080'
+    prometheus.io/scrape: 'true'
 spec:
   type: ClusterIP
   ports:
@@ -79,10 +82,11 @@ data:
     	timeout connect 5000ms
     	timeout client 50000ms
     	timeout server 50000ms
-    
-    
+
+
     frontend http
     	bind :8080
+      http-request use-service prometheus-exporter if { path /metrics }
     	default_backend stats
     
     
@@ -212,7 +216,7 @@ metadata:
   labels:
     app: haproxy
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: haproxy
@@ -222,16 +226,16 @@ spec:
       labels:
         app: haproxy
     spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                    - haproxy
-              topologyKey: "kubernetes.io/hostname"
+      # affinity:
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       - labelSelector:
+      #           matchExpressions:
+      #           - key: app
+      #             operator: In
+      #             values:
+      #               - haproxy
+      #         topologyKey: "kubernetes.io/hostname"
       containers:
         - name: haproxy
           image: haproxy:lts-alpine3.17
@@ -239,6 +243,8 @@ spec:
             - containerPort: 8080
             - containerPort: 6379
             - containerPort: 6380
+            - containerPort: 27017
+            - containerPort: 27018
           volumeMounts:
           - name: config
             mountPath: /usr/local/etc/haproxy/haproxy.cfg
@@ -267,6 +273,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: haproxy
+            name: haproxy-dashboard
             port: 
               name: dashboard
