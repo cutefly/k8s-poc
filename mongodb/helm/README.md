@@ -74,6 +74,8 @@ cfg.members[2].priority = 1 <=> 5
 rs.reconfig(cfg, {force: true})
 rs.config()
 
+# 운영 중일 때는 각 member별 priority가 동일해야 함.
+
 $ kubectl exec -it  mongosh --namespace=mongodb-cluster -- bash
 /# mongosh --host docker-desktop --port 32019 -u kpcadmin -p kpcard
 ```
