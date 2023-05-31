@@ -2,14 +2,43 @@ configs:
   params:
     server.insecur: true
   cm:
-    accounts.devuser: apiKey, login
-  rbac:
-    policy.csv: |
-      p, role:devuser, applications, *, */*, allow
-      p, role:devuser, clusters, get, *, allow
-      p, role:devuser, projects, get, *, allow
-      p, role:devuser, repositories, get, *, allow
-      p, role:devuser, repositories, create, *, allow
-      p, role:devuser, repositories, update, *, allow
-      p, role:devuser, repositories, delete, *, allow
-      g, devuser, role:devuser
+    # accounts.devuser: apiKey, login
+    dex.config: |
+      connectors:
+      - type: ldap
+        name: openldap
+        id: ldap
+        config:
+          host: "172.16.4.225:389"
+          insecureNoSSL: true
+          insecureSkipVerify: true
+          # rootCA: <ldap 서버 CA 인증서>
+          bindDN: cn=admin,dc=kpcard,dc=co,dc=kr
+          bindPW: admin
+          usernamePrompt: Username
+          # 사용자를 찾는데 사용되는 정보
+          userSearch: 
+            baseDN: ou=users,dc=kpcard,dc=co,dc=kr
+            filter: "(objectClass=inetOrgPerson)"
+            username: uid
+            idAttr: uid
+            emailAttr: mail
+            nameAttr: displayName
+          # 그룹을 찾는데 사용되는 정보
+          groupSearch:
+            baseDN: ou=groups,dc=kpcard,dc=co,dc=kr
+            filter: "(objectClass=posixGroup)"
+            userMatchers:
+            - userAttr: memberUid
+              groupAttr: cn
+            nameAttr: cn
+  # rbac:
+  #   policy.csv: |
+  #     p, role:devuser, applications, *, */*, allow
+  #     p, role:devuser, clusters, get, *, allow
+  #     p, role:devuser, projects, get, *, allow
+  #     p, role:devuser, repositories, get, *, allow
+  #     p, role:devuser, repositories, create, *, allow
+  #     p, role:devuser, repositories, update, *, allow
+  #     p, role:devuser, repositories, delete, *, allow
+  #     g, devuser, role:devuser

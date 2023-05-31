@@ -33,6 +33,9 @@ kubectl taint nodes minikube node-role.kubernetes.io/control-plane:NoSchedule no
 # network tool
 kubectl run -it --rm network-tools --image=jonlabelle/network-tools --restart=Never -- bash
 
+# Network-Multitool
+kubectl run -it --rm network-tools --image=wbitt/network-multitool --restart=Never -- bash
+
 # busybox
 kubectl run -it --rm busybox --image=busybox --restart=Never --namespace=$(NAMESPACE) -- sh
 ```
