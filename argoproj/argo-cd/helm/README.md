@@ -51,3 +51,40 @@ argocd account update-password --account devuser --current-password $(adminPassw
 ```
 
 ### openldap
+
+```yaml
+configs:
+  params:
+    server.insecur: true
+  cm:
+    # url 설정은 반드시 필요
+    url: https://localhost:8080
+    dex.config: |
+      connectors:
+      - type: ldap
+        name: openldap
+        id: ldap
+        config:
+          host: "172.16.4.225:389"
+          insecureNoSSL: true
+          insecureSkipVerify: true
+          # rootCA: <ldap 서버 CA 인증서>
+          bindDN: cn=admin,dc=kpcard,dc=co,dc=kr
+          bindPW: admin
+          usernamePrompt: Username
+          # 사용자를 찾는데 사용되는 정보
+          userSearch: 
+            baseDN: ou=users,dc=kpcard,dc=co,dc=kr
+            filter: "(objectClass=inetOrgPerson)"
+            username: uid
+            idAttr: uid
+            emailAttr: mail
+            nameAttr: displayName
+          # 그룹을 찾는데 사용되는 정보
+          groupSearch:
+            baseDN: ou=groups,dc=kpcard,dc=co,dc=kr
+            filter: "(objectClass=posixGroup)"
+            userAttr: memberUid
+            groupAttr: cn
+            nameAttr: description
+```
