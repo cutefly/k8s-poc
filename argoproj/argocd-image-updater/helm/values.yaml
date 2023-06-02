@@ -1,0 +1,8 @@
+config:
+  registries:
+  - name: KPC Registry
+    prefix: docker.kpcard.co.kr
+    api_url: https://docker.kpcard.co.kr
+    credentials: pullsecret:argocd/kpcard-registry-cred
+    insecure: true
+    default: true
