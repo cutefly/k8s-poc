@@ -1,5 +1,7 @@
 # Argo CD image update
 
+> https://github.com/argoproj/argo-helm/tree/main/charts/argocd-image-updater
+
 ## install argocd image updater
 
 ```
