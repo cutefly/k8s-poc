@@ -38,7 +38,7 @@ configs:
             baseDN: ou=groups,dc=kpcard,dc=co,dc=kr
             filter: "(objectClass=posixGroup)"
             userMatchers:
-            - userAttr: cn
+            - userAttr: uid
               groupAttr: memberUid
             nameAttr: cn
   rbac:
