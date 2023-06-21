@@ -54,9 +54,18 @@ configs:
       g, jenkins-admin, role:admin
       g, mobilepop-manager, role:mobilepop-manager
       p, role:mobilepop-manager, applications, *, mobilepop/*, allow
+      p, role:mobilepop-manager, clusters, get, *, allow
+      p, role:mobilepop-manager, projects, get, mobilepop, allow
+      p, role:mobilepop-manager, repositories, get, *, allow
       g, mobilepop-developer, role:mobilepop-developer
       p, role:mobilepop-developer, applications, get, mobilepop/*, allow
       g, palrago-manager, role:palrago-manager
       p, role:palrago-manager, applications, *, palrago/*, allow
+      p, role:palrago-manager, clusters, get, *, allow
+      p, role:palrago-manager, projects, get, palrago, allow
+      p, role:palrago-manager, repositories, get, *, allow
       g, palrago-developer, role:palrago-developer
       p, role:palrago-developer, applications, get, palrago/*, allow
+      g, jenkins-manager, role:manager
+      p, role:manager, applications, *, palrago/*, allow
+      p, role:manager, applications, *, mobilepop/*, allow

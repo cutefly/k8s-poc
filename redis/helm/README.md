@@ -14,6 +14,8 @@ helm upgrade kpcard bitnami/redis-cluster -n redis-cluster --create-namespace -f
 
 # redis-cluster 삭제
 helm uninstall kpcard -n redis-cluster
+kubectl -n redis-cluster delete pvc --all
+
 ```
 
 ```sh
@@ -23,7 +25,7 @@ helm upgrade redis-sentinel bitnami/redis -n redis-sentinel --create-namespace -
 
 # redis-sentinel 삭제
 helm uninstall redis-sentinel -n redis-sentinel
-
+kubectl -n redis-sentinel delete pvc --all
 ```
 
 # Test
