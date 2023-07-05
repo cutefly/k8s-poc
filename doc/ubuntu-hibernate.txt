@@ -1,0 +1,27 @@
+no label, UUID=7f17ce0c-7285-4eb1-96b1-0816deedd3f4
+
+https://ubuntuhandbook.org/index.php/2021/08/enable-hibernate-ubuntu-21-10/
+
+# Secure boot mode에서는 hibernate 불가
+
+a.) Pre-allocate a disk place for a file via command:
+sudo dd if=/dev/zero of=/swapfile count=32768 bs=1MiB
+
+c.) Set the file as swap area:
+sudo mkswap /swapfile
+
+d.) Finally enable it by running command:
+sudo swapon /swapfile
+
+e.) And write it into ‘/etc/fstab’, so Ubuntu will mount it automatically on startup:
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+Setting up swapspace version 1, size = 32 GiB (34359734272 bytes)
+no label, UUID=44289425-29d1-41bc-8471-3da14a29e4f5
+
+blkid
+/dev/nvme0n1p7: UUID="5edf502a-c071-455a-930e-f54e0531d367" BLOCK_SIZE="4096" TYPE="ext4" PARTUUID="df55a5a8-e0be-4be7-994b-b244e43ee222"
+
+sudo filefrag -v /swapfile
+ ext:     logical_offset:        physical_offset: length:   expected: flags:
+   0:        0..    2047:   37730304..  37732351:   2048:            
