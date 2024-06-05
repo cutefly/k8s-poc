@@ -16,7 +16,7 @@ $ helm upgrade --install ingress-nginx ingress-nginx \
 # Repository 추가
 $ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 
-# 설치
+# 설치(cert manager 설치 후 실행)
 $ helm install ingress-nginx ingress-nginx/ingress-nginx \
   --namespace ingress-nginx --create-namespace \
   -f values.yaml
