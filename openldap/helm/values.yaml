@@ -1,0 +1,30 @@
+global:
+  ldapDomain: "kpcard.co.kr"
+  adminUser: "admin"
+  adminPassword: "kpcard1@"
+replicaCount: 1
+users: kpcadmin,deploy
+userPasswords: kpcard1@,kpcard
+group: admin
+phpldapadmin:
+  enabled: true
+  ingress:
+    enabled: true
+    annotations: {}
+    # Assuming that ingress-nginx is used
+    ingressClassName: nginx
+    path: /
+    ## Ingress Host
+    hosts:
+    - pla.docker.internal
+  env:
+    PHPLDAPADMIN_LDAP_CLIENT_TLS_REQCERT: "never"
+ltb-passwd:
+  enabled : true
+  ingress:
+    enabled: true
+    annotations: {}
+    # Assuming that ingress-nginx is used
+    ingressClassName: nginx
+    hosts:
+    - ltb.docker.internal

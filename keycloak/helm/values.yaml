@@ -10,10 +10,10 @@ fullnameOverride: ""
 auth:
   ## @param auth.adminUser Keycloak administrator user
   ##
-  adminUser: "user"
+  adminUser: "admin"
   ## @param auth.adminPassword Keycloak administrator password for the new user
   ##
-  adminPassword: "password"
+  adminPassword: "kpcard1@"
 ingress:
   ## @param ingress.enabled Enable ingress record generation for Keycloak
   ##
