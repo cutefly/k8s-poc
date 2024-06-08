@@ -20,20 +20,7 @@ controller:
 
 ## Lets Encrypt
 
-```yaml
-# https://cert-manager.io/docs/configuration/acme/
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: letsencrypt-prod
-spec:
-  acme:
-    email: your-email@example.com
-    server: https://acme-v02.api.letsencrypt.org/directory
-    privateKeySecretRef:
-      name: letsencrypt-prod
-    solvers:
-      - http01:
-          ingress:
-            class: nginx
+```sh
+$ kubectl apply -f letsencrypt-staging.yaml
+$ kubectl apply -f letsencrypt-prod.yaml
 ```

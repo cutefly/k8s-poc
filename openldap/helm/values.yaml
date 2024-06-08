@@ -1,11 +1,14 @@
 global:
   ldapDomain: "kpcard.co.kr"
-  adminUser: "admin"
+  adminUser: "ldapadmin"
   adminPassword: "kpcard1@"
-replicaCount: 1
-users: kpcadmin,deploy
-userPasswords: kpcard1@,kpcard
-group: admin
+  configUserEnabled: false
+  configUser: "ldapadmin"
+  configPassword: "kpcard1@"
+replicaCount: 3
+# users: kpcadmin,deploy
+# userPasswords: kpcard1@,kpcard
+# group: admin
 phpldapadmin:
   enabled: true
   ingress:
