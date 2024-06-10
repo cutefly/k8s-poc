@@ -1,0 +1,67 @@
+## Keycloak authentication parameters
+## ref: https://github.com/bitnami/containers/tree/main/bitnami/keycloak#admin-credentials
+##
+auth:
+  ## @param auth.adminUser Keycloak administrator user
+  ##
+  adminUser: "admin"
+  ## @param auth.adminPassword Keycloak administrator password for the new user
+  ##
+  adminPassword: "kpcard1@"
+
+## Keycloak ingress parameters
+## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+##
+ingress:
+  ## @param ingress.enabled Enable ingress record generation for Keycloak
+  ##
+  enabled: true
+  ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
+  ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
+  ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+  ##
+  ingressClassName: "nginx"
+  ## @param ingress.hostname Default host for the ingress record (evaluated as template)
+  ##
+  hostname: auth.club012.com
+
+## @param production Run Keycloak in production mode. TLS configuration is required except when using proxy=edge.
+##
+# production: true
+
+## @param proxy reverse Proxy mode edge, reencrypt, passthrough or none
+## ref: https://www.keycloak.org/server/reverseproxy
+##
+# proxy: edge
+
+## @param extraEnvVars Extra environment variables to be set on Keycloak container
+## Example:
+## extraEnvVars:
+##   - name: FOO
+##     value: "bar"
+##
+# extraEnvVars:
+#   - name: PROXY_ADDRESS_FORWARDING
+#     value: "true"
+#   - name: KC_HOSTNAME_URL
+#     value: https://auth.club012.com/
+
+## PostgreSQL chart configuration
+## ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
+## @param postgresql.enabled Switch to enable or disable the PostgreSQL helm chart
+## @param postgresql.auth.postgresPassword Password for the "postgres" admin user. Ignored if `auth.existingSecret` with key `postgres-password` is provided
+## @param postgresql.auth.username Name for a custom user to create
+## @param postgresql.auth.password Password for the custom user to create
+## @param postgresql.auth.database Name for a custom database to create
+## @param postgresql.auth.existingSecret Name of existing secret to use for PostgreSQL credentials
+## @param postgresql.architecture PostgreSQL architecture (`standalone` or `replication`)
+##
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "postgres"
+    username: bn_keycloak
+    password: "postgres"
+    database: bitnami_keycloak
+    existingSecret: ""
+  architecture: standalone
