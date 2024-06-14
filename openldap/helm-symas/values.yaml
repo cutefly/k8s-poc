@@ -5,7 +5,7 @@ global:
   # configUserEnabled: false
   # configUser: "ldapadmin"
   # configPassword: "kpcard1@"
-replicaCount: 1
+replicaCount: 3
 # users: kpcadmin,deploy
 # userPasswords: kpcard1@,kpcard
 # group: admin
