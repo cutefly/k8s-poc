@@ -1,0 +1,71 @@
+server:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+      - argocd.k8s.local
+      - argocd.kpcard.co.kr
+configs:
+  params:
+    server.insecure: true
+  cm:
+    url: http://argocd.k8s.local:32080
+    accounts.devuser: apiKey, login
+    dex.config: |
+      connectors:
+      - type: ldap
+        name: openldap
+        id: ldap
+        config:
+          host: "argocd.k8s.local:389"
+          insecureNoSSL: true
+          insecureSkipVerify: true
+          # rootCA: <ldap 서버 CA 인증서>
+          bindDN: cn=admin,dc=kpcard,dc=co,dc=kr
+          bindPW: admin
+          usernamePrompt: Username
+          # 사용자를 찾는데 사용되는 정보
+          userSearch: 
+            baseDN: ou=users,dc=kpcard,dc=co,dc=kr
+            filter: "(objectClass=inetOrgPerson)"
+            username: uid
+            idAttr: uid
+            emailAttr: mail
+            nameAttr: displayName
+          # 그룹을 찾는데 사용되는 정보
+          groupSearch:
+            baseDN: ou=groups,dc=kpcard,dc=co,dc=kr
+            filter: "(objectClass=posixGroup)"
+            userMatchers:
+            - userAttr: uid
+              groupAttr: memberUid
+            nameAttr: cn
+  rbac:
+    policy.csv: |
+      p, role:devuser, applications, *, */*, allow
+      p, role:devuser, clusters, get, *, allow
+      p, role:devuser, projects, get, *, allow
+      p, role:devuser, repositories, get, *, allow
+      p, role:devuser, repositories, create, *, allow
+      p, role:devuser, repositories, update, *, allow
+      p, role:devuser, repositories, delete, *, allow
+      g, devuser, role:devuser
+      g, jenkins-admin, role:admin
+      g, mobilepop-manager, role:mobilepop-manager
+      p, role:mobilepop-manager, applications, *, mobilepop/*, allow
+      p, role:mobilepop-manager, clusters, get, *, allow
+      p, role:mobilepop-manager, projects, get, mobilepop, allow
+      p, role:mobilepop-manager, repositories, get, *, allow
+      g, mobilepop-developer, role:mobilepop-developer
+      p, role:mobilepop-developer, applications, get, mobilepop/*, allow
+      g, palrago-manager, role:palrago-manager
+      p, role:palrago-manager, applications, *, palrago/*, allow
+      p, role:palrago-manager, clusters, get, *, allow
+      p, role:palrago-manager, projects, get, palrago, allow
+      p, role:palrago-manager, repositories, get, *, allow
+      g, palrago-developer, role:palrago-developer
+      p, role:palrago-developer, applications, get, palrago/*, allow
+      g, jenkins-manager, role:manager
+      p, role:manager, applications, *, palrago/*, allow
+      p, role:manager, applications, *, mobilepop/*, allow

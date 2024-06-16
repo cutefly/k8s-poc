@@ -1,71 +1,54 @@
+global:
+  domain: argocd.club012.com
+
+configs:
+  # Argo CD configuration parameters
+  ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cmd-params-cm.yaml
+  params:
+    ## Server properties
+    # -- Run server without TLS
+    ## NOTE: This value should be set when you generate params by other means as it changes ports used by ingress template.
+    server.insecure: true
+  # General Argo CD configuration
+  ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cm.yaml
+  cm:
+    # -- Create the argocd-cm configmap for [declarative setup]
+    create: true
+
+    # -- Annotations to be added to argocd-cm configmap
+    annotations: {}
+
+    # -- Argo CD's externally facing base URL (optional). Required when configuring SSO
+    url: https://argocd.club012.com
+    oidc.config: |
+      name: Keycloak
+      issuer: https://keycloak.club012.com/realms/ldap-realm
+      clientID: argocd-client
+      clientSecret: QjQ4dU1wS0pNdTZZQ2g3dWl6c3oxcGMzUVNlMkk5SnY=
+      requestedScopes: ["openid", "profile", "email", "groups"]
+
+  # Argo CD RBAC policy configuration
+  ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md
+  rbac:
+    # -- Create the argocd-rbac-cm configmap with ([Argo CD RBAC policy]) definitions.
+    # If false, it is expected the configmap will be created by something else.
+    # Argo CD will not work if there is no configmap created with the name above.
+    create: true
+    # -- File containing user-defined policies and role definitions.
+    # @default -- `''` (See [values.yaml])
+    policy.csv: |
+      g, admin, role:admin
+
 server:
   ingress:
     enabled: true
+    ingressClassName: nginx
     annotations:
-      kubernetes.io/ingress.class: nginx
-    hosts:
-      - argocd.k8s.local
-      - argocd.kpcard.co.kr
-configs:
-  params:
-    server.insecure: true
-  cm:
-    url: http://argocd.k8s.local:32080
-    accounts.devuser: apiKey, login
-    dex.config: |
-      connectors:
-      - type: ldap
-        name: openldap
-        id: ldap
-        config:
-          host: "argocd.k8s.local:389"
-          insecureNoSSL: true
-          insecureSkipVerify: true
-          # rootCA: <ldap 서버 CA 인증서>
-          bindDN: cn=admin,dc=kpcard,dc=co,dc=kr
-          bindPW: admin
-          usernamePrompt: Username
-          # 사용자를 찾는데 사용되는 정보
-          userSearch: 
-            baseDN: ou=users,dc=kpcard,dc=co,dc=kr
-            filter: "(objectClass=inetOrgPerson)"
-            username: uid
-            idAttr: uid
-            emailAttr: mail
-            nameAttr: displayName
-          # 그룹을 찾는데 사용되는 정보
-          groupSearch:
-            baseDN: ou=groups,dc=kpcard,dc=co,dc=kr
-            filter: "(objectClass=posixGroup)"
-            userMatchers:
-            - userAttr: uid
-              groupAttr: memberUid
-            nameAttr: cn
-  rbac:
-    policy.csv: |
-      p, role:devuser, applications, *, */*, allow
-      p, role:devuser, clusters, get, *, allow
-      p, role:devuser, projects, get, *, allow
-      p, role:devuser, repositories, get, *, allow
-      p, role:devuser, repositories, create, *, allow
-      p, role:devuser, repositories, update, *, allow
-      p, role:devuser, repositories, delete, *, allow
-      g, devuser, role:devuser
-      g, jenkins-admin, role:admin
-      g, mobilepop-manager, role:mobilepop-manager
-      p, role:mobilepop-manager, applications, *, mobilepop/*, allow
-      p, role:mobilepop-manager, clusters, get, *, allow
-      p, role:mobilepop-manager, projects, get, mobilepop, allow
-      p, role:mobilepop-manager, repositories, get, *, allow
-      g, mobilepop-developer, role:mobilepop-developer
-      p, role:mobilepop-developer, applications, get, mobilepop/*, allow
-      g, palrago-manager, role:palrago-manager
-      p, role:palrago-manager, applications, *, palrago/*, allow
-      p, role:palrago-manager, clusters, get, *, allow
-      p, role:palrago-manager, projects, get, palrago, allow
-      p, role:palrago-manager, repositories, get, *, allow
-      g, palrago-developer, role:palrago-developer
-      p, role:palrago-developer, applications, get, palrago/*, allow
-      g, jenkins-manager, role:manager
-      p, role:manager, applications, *, palrago/*, allow
-      p, role:manager, applications, *, mobilepop/*, allow
+      # cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    # extraTls:
+    #   - hosts:
+    #     - argocd.club012.com
+    #     # Based on the ingress controller used secret might be optional
+    #     secretName: argocd-tls
