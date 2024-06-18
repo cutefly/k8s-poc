@@ -5,10 +5,16 @@ global:
   # configUserEnabled: false
   # configUser: "ldapadmin"
   # configPassword: "kpcard1@"
-replicaCount: 3
+
+replicaCount: 1
 # users: kpcadmin,deploy
 # userPasswords: kpcard1@,kpcard
 # group: admin
+
+## Replication
+replication:
+  enabled: true
+
 phpldapadmin:
   enabled: true
   ingress:

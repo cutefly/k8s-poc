@@ -24,9 +24,10 @@ configs:
       name: Keycloak
       issuer: https://keycloak.club012.com/realms/ldap-realm
       clientID: argocd-client
-      clientSecret: QjQ4dU1wS0pNdTZZQ2g3dWl6c3oxcGMzUVNlMkk5SnY=
+      clientSecret: B48uMpKJMu6YCh7uizsz1pc3QSe2I9Jv
       requestedScopes: ["openid", "profile", "email", "groups"]
-
+      requestedIDTokenClaims: {"groups": {"essential": true}}
+      logoutURL: https://keycloak.club012.com/realms/ldap-realm/protocol/openid-connect/logout?id_token_hint={{token}}&post_logout_redirect_uri=https://argocd.club012.com/
   # Argo CD RBAC policy configuration
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md
   rbac:
