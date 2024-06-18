@@ -14,17 +14,15 @@ configs:
   cm:
     # -- Create the argocd-cm configmap for [declarative setup]
     create: true
-
     # -- Annotations to be added to argocd-cm configmap
     annotations: {}
-
     # -- Argo CD's externally facing base URL (optional). Required when configuring SSO
     url: https://argocd.club012.com
     oidc.config: |
       name: Keycloak
       issuer: https://keycloak.club012.com/realms/ldap-realm
       clientID: argocd-client
-      clientSecret: B48uMpKJMu6YCh7uizsz1pc3QSe2I9Jv
+      clientSecret: rYopvInB2seF31uvf3XJztKgp0O2xSSg
       requestedScopes: ["openid", "profile", "email", "groups"]
       requestedIDTokenClaims: {"groups": {"essential": true}}
       logoutURL: https://keycloak.club012.com/realms/ldap-realm/protocol/openid-connect/logout?id_token_hint={{token}}&post_logout_redirect_uri=https://argocd.club012.com/
