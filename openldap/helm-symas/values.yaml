@@ -7,13 +7,14 @@ global:
   # configPassword: "kpcard1@"
 
 replicaCount: 1
+
 # users: kpcadmin,deploy
 # userPasswords: kpcard1@,kpcard
 # group: admin
 
 ## Replication
 replication:
-  enabled: true
+  enabled: false
 
 phpldapadmin:
   enabled: true
@@ -36,4 +37,4 @@ ltb-passwd:
     # Assuming that ingress-nginx is used
     ingressClassName: nginx
     hosts:
-    - pla.club012.com
+    - ltb.club012.com

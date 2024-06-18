@@ -7,9 +7,9 @@
 ```sh
 $ helm repo add symas-openldap https://symas.github.io/helm-openldap/
 
-$ helm install openldap symas-openldap/openldap --namespace keycloak --create-namespace -f values.yaml
-$ helm upgrade openldap symas-openldap/openldap --namespace keycloak -f values.yaml
+$ helm install openldap symas-openldap/openldap --namespace openldap --create-namespace -f values.yaml
+$ helm upgrade openldap symas-openldap/openldap --namespace openldap -f values.yaml
 
 # 제거
-$ helm uninstall openldap --namespace keycloak
+$ helm uninstall openldap --namespace openldap
 ```

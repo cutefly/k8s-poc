@@ -39,6 +39,7 @@ configs:
     # @default -- `''` (See [values.yaml])
     policy.csv: |
       g, admin, role:admin
+      g, developer, role:readonly
 
 server:
   ingress:
