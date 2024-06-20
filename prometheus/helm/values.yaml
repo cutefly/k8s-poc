@@ -3,8 +3,8 @@ server:
     enabled: true
     ingressClassName: nginx
     hosts: 
-      - prometheus.k8s.local
-      - prometheus.kpcard.co.kr
+      - prometheus.club012.com
+
 # Windows에서는 htstRootfs를 false로
 # nodeExporter:
 #   hostRootfs: false
@@ -13,3 +13,8 @@ server:
 #     static_configs:
 #       - targets:
 #           - kpcard-mongodb-metrics.mongodb-cluster.svc.cluster.local:9216
+
+networkPolicy:
+  ## Enable creation of NetworkPolicy resources.
+  ##
+  enabled: true

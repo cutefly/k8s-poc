@@ -2,10 +2,11 @@
 
 ```
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
 
-helm install kpc prometheus-community/prometheus -n monitoring --create-namespace -f values.yaml
-helm upgrade kpc prometheus-community/prometheus -n monitoring -f values.yaml
-helm uninstall kpc -n monitoring
+helm install prometheus prometheus-community/prometheus -n monitoring --create-namespace -f values.yaml
+helm upgrade prometheus prometheus-community/prometheus -n monitoring -f values.yaml
+helm uninstall prometheus -n monitoring
 ```
 
 ## 이슈처리

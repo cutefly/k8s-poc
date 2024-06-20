@@ -37,3 +37,11 @@ $ helm uninstall keycloak --namespace keycloak
 ARM64에서 이슈가 있음.
 Postgresql을 외부 DB로 사용하는 경우 가능할 것으로 보임.
 ```
+
+## oidc helper plugin
+
+```
+krew(plugin manager) 설저
+kubelogin 설치
+kubectl oidc-login get-token--oidc-issuer-url=https://keycloak.club012.com/realms/ldap-realm --oidc-client-id=k8s-client --oidc-client-secret=gnY7tTVOo7MN4GUqmBH7ex43lK7dn2aO --grant-type=password
+```

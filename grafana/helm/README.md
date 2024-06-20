@@ -8,10 +8,10 @@
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 
-helm install k8s grafana/grafana --namespace grafana --create-namespace -f values.yaml
-helm upgrade k8s grafana/grafana --namespace grafana --create-namespace -f values.yaml
+helm install grafana grafana/grafana --namespace monitoring --create-namespace -f values.yaml
+helm upgrade grafana grafana/grafana --namespace monitoring -f values.yaml
 
-$ helm uninstall k8s -n grafana
+$ helm uninstall grafana -n grafana
 
 http://grafana.k8s.local:32080/
 ```

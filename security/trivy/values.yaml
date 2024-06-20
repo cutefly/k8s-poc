@@ -1,0 +1,12 @@
+# -- podAnnotations annotations added to the operator's pod
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /metrics
+  prometheus.io/port: "8080"
+
+serviceMonitor:
+  # enabled determines whether a serviceMonitor should be deployed
+  enabled: true
+
+trivy:
+  ignoreUnfixed: true
