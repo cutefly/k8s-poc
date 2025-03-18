@@ -1,0 +1,35 @@
+ingress:
+  # -- Enable ingress controller resource
+  enabled: true
+  # -- Annotations for Ingress resource
+  annotations:
+    {}
+    # kubernetes.io/tls-acme: "true"
+
+  # -- Additional labels to add to the Ingress resource
+  labels: {}
+    # app.kubernetes.io/part-of: traefik
+    # environment: prod
+
+  # -- Ingress class name. replacement for the deprecated "kubernetes.io/ingress.class" annotation
+  ingressClassName: "nginx"
+
+  # -- Hostname(s) for the Ingress resource
+  # Please refer to https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec for more information.
+  hosts:
+    - host: headlamp.club012.com
+      paths:
+      - path: /
+        type: ImplementationSpecific
+  # -- Ingress TLS configuration
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+## OIDC 준비 중
+config:
+  oidc:
+    clientID: "your-client-id"
+    clientSecret: "your-client-secret"
+    issuerURL: "https://your-issuer"
+    scopes: "openid profile email"
