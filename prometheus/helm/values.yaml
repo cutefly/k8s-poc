@@ -1,20 +1,119 @@
-server:
+## Using default values from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
+##
+grafana:
+  enabled: true
+
+  adminUser: admin
+  adminPassword: kpcard1@
+
+  ingress:
+    ## If true, Grafana Ingress will be created
+    ##
+    enabled: true
+
+    ## IngressClassName for Grafana Ingress.
+    ## Should be provided if Ingress is enable.
+    ##
+    # ingressClassName: nginx
+    ingressClassName: nginx
+
+    ## Hostnames.
+    ## Must be provided if Ingress is enable.
+    ##
+    # hosts:
+    #   - grafana.domain.com
+    hosts:
+      - grafana.club012.com
+
+## Deploy a Prometheus instance
+##
+prometheus:
+  enabled: true
+
   ingress:
     enabled: true
+
+    # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+    # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
     ingressClassName: nginx
-    hosts: 
+
+    ## Hostnames.
+    ## Must be provided if Ingress is enabled.
+    ##
+    # hosts:
+    #   - prometheus.domain.com
+    hosts:
       - prometheus.club012.com
 
-# Windows에서는 htstRootfs를 false로
-# nodeExporter:
-#   hostRootfs: false
-# extraScrapeConfigs: |
-#   - job_name: "mongodb-exporter"
-#     static_configs:
-#       - targets:
-#           - kpcard-mongodb-metrics.mongodb-cluster.svc.cluster.local:9216
-
-networkPolicy:
-  ## Enable creation of NetworkPolicy resources.
+  ## Settings affecting prometheusSpec
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#prometheusspec
   ##
-  enabled: true
+  prometheusSpec:
+    ## Prometheus StorageSpec for persistent data
+    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/storage.md
+    ##
+    storageSpec:
+    ## Using PersistentVolumeClaim
+    ##
+      volumeClaimTemplate:
+        spec:
+          storageClassName: standard
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+    #    selector: {}
+
+    ## If true, a nil or {} value for prometheus.prometheusSpec.serviceMonitorSelector will cause the
+    ## prometheus resource to be created with selectors based on values in the helm deployment,
+    ## which will also match the servicemonitors created
+    ##
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+    ## ServiceMonitors to be selected for target discovery.
+    ## If {}, select all ServiceMonitors
+    ##
+    serviceMonitorSelector: {}
+    ## Example which selects ServiceMonitors with label "prometheus" set to "somelabel"
+    # serviceMonitorSelector:
+    #   matchLabels:
+    #     prometheus: somelabel
+
+    ## Namespaces to be selected for ServiceMonitor discovery.
+    ##
+    serviceMonitorNamespaceSelector: {}
+    # serviceMonitorNamespaceSelector:
+    #   matchNames:
+    #   - redis-sentinel
+    #   - rabbitmq-cluster
+    ## Example which selects ServiceMonitors in namespaces with label "prometheus" set to "somelabel"
+    # serviceMonitorNamespaceSelector:
+    #   matchLabels:
+    #     prometheus: somelabel
+
+    ## If true, a nil or {} value for prometheus.prometheusSpec.podMonitorSelector will cause the
+    ## prometheus resource to be created with selectors based on values in the helm deployment,
+    ## which will also match the podmonitors created
+    ##
+    podMonitorSelectorNilUsesHelmValues: false
+
+    ## PodMonitors to be selected for target discovery.
+    ## If {}, select all PodMonitors
+    ##
+    podMonitorSelector: {}
+    ## Example which selects PodMonitors with label "prometheus" set to "somelabel"
+    # podMonitorSelector:
+    #   matchLabels:
+    #     prometheus: somelabel
+
+    ## If nil, select own namespace. Namespaces to be selected for PodMonitor discovery.
+    podMonitorNamespaceSelector: {}
+    # podMonitorNamespaceSelector:
+    #   matchNames:
+    #   - redis-sentinel
+    #   - rabbitmq-cluster
+     ## Example which selects PodMonitor in namespaces with label "prometheus" set to "somelabel"
+    # podMonitorNamespaceSelector:
+    #   matchLabels:
+    #     prometheus: somelabel
+

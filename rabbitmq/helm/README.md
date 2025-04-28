@@ -7,8 +7,9 @@ https://github.com/bitnami/charts/blob/master/bitnami/rabbitmq/values.yaml
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
 $ helm install rabbimq-server bitnami/rabbitmq
 
-$ helm install -n rabbitmq-system -f values.yaml rabbitmq bitnami/rabbitmq
-$ helm uninstall -n rabbitmq-system rabbitmq
+$ helm install rabbitmq bitnami/rabbitmq -n rabbitmq-cluster --create-namespace -f values.yaml
+$ helm upgrade rabbitmq bitnami/rabbitmq -n rabbitmq-cluster -f values.yaml
+$ helm uninstall rabbitmq -n rabbitmq-cluster
 ```
 
 ```text

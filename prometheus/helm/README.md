@@ -1,5 +1,20 @@
 # Prometheus 설치
 
+
+## kube-prometheus-stack(Active)
+
+> helm cahrt : https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
+
+```sh
+helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring --create-namespace -f values.yaml
+helm upgrade prometheus prometheus-community/kube-prometheus-stack -n monitoring -f values.yaml
+helm uninstall prometheus -n monitoring
+```
+
+## prometheus operator(Inactive)
+
+> operator : https://github.com/prometheus-operator/prometheus-operator
+
 ```
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update

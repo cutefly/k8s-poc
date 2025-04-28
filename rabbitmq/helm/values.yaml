@@ -3,20 +3,51 @@ persistence:
   enabled: true
   #   # storageClass: nfs-client
   #   storageClass: local-path
-  size: 500Mi
-nameOverride: cluster
+  #size: 500Mi
+fullnameOverride: "rabbitmq"
 replicaCount: 3
 ingress:
   enabled: true
   ingressClassName: "nginx"
-  hostname: "mq-admin.k8s.local"
-resources:
-  requests:
-    cpu: 500m
-    memory: 1Gi
-  limits:
-    cpu: 1000m
-    memory: 1Gi
+  hostname: "rabbitmq.club012.com"
+# resources:
+#   requests:
+#     cpu: 500m
+#     memory: 1Gi
+#   limits:
+#     cpu: 1000m
+#     memory: 1Gi
+
+## RabbitMQ Authentication parameters
+##
+auth:
+  ## @param auth.username RabbitMQ application username
+  ## ref: https://github.com/bitnami/containers/tree/main/bitnami/rabbitmq#environment-variables
+  ##
+  # username: user
+  ## @param auth.password RabbitMQ application password
+  ## ref: https://github.com/bitnami/containers/tree/main/bitnami/rabbitmq#environment-variables
+  ##
+  password: "kpcard1@"
+
+## Prometheus Metrics
+##
+metrics:
+  ## @param metrics.enabled Enable exposing RabbitMQ metrics to be gathered by Prometheus
+  ##
+  enabled: true
+  ## Prometheus Service Monitor
+  ## ref: https://github.com/coreos/prometheus-operator
+  ##
+  serviceMonitor:
+    ## Scrape metrics from the `/metrics` endpoint
+    ## ref: https://www.rabbitmq.com/docs/prometheus#default-endpoint
+    ##
+    default:
+      ## @param metrics.serviceMonitor.default.enabled Enable default metrics endpoint (`GET /metrics`) to be scraped by the ServiceMonitor
+      ##
+      enabled: true
+ 
 # Additional plugins
-communityPlugins: "https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download/3.10.2/rabbitmq_delayed_message_exchange-3.10.2.ez"
-extraPlugins: "rabbitmq_delayed_message_exchange"
+#communityPlugins: "https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download/3.10.2/rabbitmq_delayed_message_exchange-3.10.2.ez"
+#extraPlugins: "rabbitmq_delayed_message_exchange"

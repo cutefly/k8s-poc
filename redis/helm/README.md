@@ -21,7 +21,7 @@ kubectl -n redis-cluster delete pvc --all
 ```sh
 # redis-sentinel 설치
 helm install redis-sentinel bitnami/redis -n redis-sentinel --create-namespace -f values-sentinel.yaml
-helm upgrade redis-sentinel bitnami/redis -n redis-sentinel --create-namespace -f values-sentinel.yaml
+helm upgrade redis-sentinel bitnami/redis -n redis-sentinel -f values-sentinel.yaml
 
 # redis-sentinel 삭제
 helm uninstall redis-sentinel -n redis-sentinel
