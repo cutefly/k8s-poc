@@ -10,7 +10,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 
 # mongodb-cluster 설치
 helm install mongodb bitnami/mongodb -n mongodb-cluster --create-namespace -f values.yaml
-helm upgrade mongodb bitnami/mongodb -n mongodb-cluster --create-namespace -f values.yaml
+helm upgrade mongodb bitnami/mongodb -n mongodb-cluster -f values.yaml
 
 # mongodb-cluster 삭제
 $ helm uninstall mongodb -n mongodb-cluster

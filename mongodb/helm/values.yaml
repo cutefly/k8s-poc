@@ -6,7 +6,7 @@ replicaCount: 3
 auth:
   enabled: true
   rootUser: kpcadmin
-  rootPassword: kpcard
+  rootPassword: kpcard1@
 replicaSetName: MainRepSet
 # 동시에 파드 생성(기본값은 OrderedReady)
 # podManagementPolicy: Parallel

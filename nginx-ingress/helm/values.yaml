@@ -10,10 +10,13 @@ controller:
       https: 32443
   metrics:
     enabled: true
-    service:
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "10254"
+    # serviceMonitor로 대체
+    # service:
+    #   annotations:
+    #     prometheus.io/scrape: "true"
+    #     prometheus.io/port: "10254"
+    serviceMonitor:
+      enabled: true
   admissionWebhooks:
     certManager:
       enabled: "true"

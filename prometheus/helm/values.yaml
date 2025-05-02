@@ -1,3 +1,7 @@
+## Provide a name to substitute for the full names of resources
+##
+fullnameOverride: "prometheus"
+
 ## Using default values from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
 ##
 grafana:
@@ -25,6 +29,32 @@ grafana:
     hosts:
       - grafana.club012.com
 
+## Component scraping the kubelet and kubelet-hosted cAdvisor
+##
+kubelet:
+  enabled: true
+  namespace: kube-system
+
+  serviceMonitor:
+    enabled: true
+    ## Enable scraping /metrics from kubelet's service
+    kubelet: true
+
+    ## Enable scraping the kubelet over https. For requirements to enable this see
+    ## https://github.com/prometheus-operator/prometheus-operator/issues/926
+    ##
+    https: true
+
+    ## Skip TLS certificate validation when scraping.
+    ## This is enabled by default because kubelet serving certificate deployed by kubeadm is by default self-signed
+    ## ref: https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs
+    ##
+    insecureSkipVerify: true
+
+    ## Enable scraping /metrics/cadvisor from kubelet's service
+    ##
+    cAdvisor: true
+
 ## Deploy a Prometheus instance
 ##
 prometheus:
@@ -51,7 +81,7 @@ prometheus:
   prometheusSpec:
     ## Prometheus StorageSpec for persistent data
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/storage.md
-    ##
+  
     storageSpec:
     ## Using PersistentVolumeClaim
     ##
@@ -62,7 +92,7 @@ prometheus:
           resources:
             requests:
               storage: 10Gi
-    #    selector: {}
+        # selector: {}
 
     ## If true, a nil or {} value for prometheus.prometheusSpec.serviceMonitorSelector will cause the
     ## prometheus resource to be created with selectors based on values in the helm deployment,
@@ -70,50 +100,8 @@ prometheus:
     ##
     serviceMonitorSelectorNilUsesHelmValues: false
 
-    ## ServiceMonitors to be selected for target discovery.
-    ## If {}, select all ServiceMonitors
-    ##
-    serviceMonitorSelector: {}
-    ## Example which selects ServiceMonitors with label "prometheus" set to "somelabel"
-    # serviceMonitorSelector:
-    #   matchLabels:
-    #     prometheus: somelabel
-
-    ## Namespaces to be selected for ServiceMonitor discovery.
-    ##
-    serviceMonitorNamespaceSelector: {}
-    # serviceMonitorNamespaceSelector:
-    #   matchNames:
-    #   - redis-sentinel
-    #   - rabbitmq-cluster
-    ## Example which selects ServiceMonitors in namespaces with label "prometheus" set to "somelabel"
-    # serviceMonitorNamespaceSelector:
-    #   matchLabels:
-    #     prometheus: somelabel
-
     ## If true, a nil or {} value for prometheus.prometheusSpec.podMonitorSelector will cause the
     ## prometheus resource to be created with selectors based on values in the helm deployment,
     ## which will also match the podmonitors created
     ##
     podMonitorSelectorNilUsesHelmValues: false
-
-    ## PodMonitors to be selected for target discovery.
-    ## If {}, select all PodMonitors
-    ##
-    podMonitorSelector: {}
-    ## Example which selects PodMonitors with label "prometheus" set to "somelabel"
-    # podMonitorSelector:
-    #   matchLabels:
-    #     prometheus: somelabel
-
-    ## If nil, select own namespace. Namespaces to be selected for PodMonitor discovery.
-    podMonitorNamespaceSelector: {}
-    # podMonitorNamespaceSelector:
-    #   matchNames:
-    #   - redis-sentinel
-    #   - rabbitmq-cluster
-     ## Example which selects PodMonitor in namespaces with label "prometheus" set to "somelabel"
-    # podMonitorNamespaceSelector:
-    #   matchLabels:
-    #     prometheus: somelabel
-
