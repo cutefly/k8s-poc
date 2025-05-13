@@ -1,7 +1,7 @@
 # Casa OS on Ubuntu 24.04
 
 ```
-OS : chris / proxmox1@
+OS : chris / ********
 IP : 192.168.219.92/24
 ```
 
@@ -34,14 +34,14 @@ $ sudo netplan apply
 ```
 Casa OS
 https://casaos.club012.com/
-chris/ proxmox1@
+chris/ ********
 
 Jellyfin
-admin: chris / proxmox1@
-user: pi / offspring
+admin: chris / ********
+user: pi / ********
 
 NextCloud
 https://nextcloud.casaos.club012.com/
-chris / proxmox1@
+chris / ********
 ```
 

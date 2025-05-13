@@ -4,20 +4,18 @@
 
 ```
 IP      : 192.168.219.135
-Account : root / proxmox1@
-          pi / offspring
+Account : root / ********
+          pi / ********
 ```
 
 ## mount storage
 
 ```
-$ sudo mount -t cifs -o uid=110,gid=118,username=pi,password=offspring //192.168.219.149/shared /mnt/cifs
+$ sudo mount -t cifs -o uid=110,gid=118,username=pi,password=******** //192.168.219.149/shared /mnt/cifs
 
 # /etc/fstab
-# deprecated
-# //192.168.219.203/rpi3share /mnt/cifs cifs uid=110,gid=118,username=pi,password=offspring 0 0
 # mount OpenMediaVault
-//192.168.219.149/shared /mnt/cifs cifs uid=110,gid=118,username=pi,password=offspring 0 0
+//192.168.219.149/shared /mnt/cifs cifs uid=110,gid=118,username=pi,password=******** 0 0
 ```
 
 ## Transmission settings

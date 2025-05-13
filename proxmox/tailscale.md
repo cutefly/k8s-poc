@@ -4,8 +4,8 @@
 
 ```
 IP :
-Account : root / proxmox1@
-          pi / offspring
+Account : root / ********
+          pi / ********
 ```
 
 ## Install tailscale

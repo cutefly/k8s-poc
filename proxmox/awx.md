@@ -4,8 +4,8 @@
 
 ```
 IP.    : 192.168.219.36(ens18)
-Account: root / proxmox
-         pi / offspring
+Account: root / ********
+         pi / ********
 ```
 
 ## install
@@ -34,5 +34,5 @@ $ export KUBECONFIG=/home/pi/.kube/config
 
 # AWX UI
 AWX URL: https://awx.club012.com/
-Account: pi / offspring
+Account: pi / ********
 ```

@@ -3,8 +3,8 @@
 ## Information
 
 ```
-OS : root / proxmox
-     chris / proxmox
+OS : root / ********
+     chris / ********
 URL : https://pve.club012.com/
 ```
 

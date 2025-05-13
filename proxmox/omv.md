@@ -4,7 +4,7 @@
 
 ```
 IP : 192.168.219.149
-Account : root / proxmox
+Account : root / ********
 ```
 
 ## Static IP
@@ -36,8 +36,8 @@ $ sudo netplan apply
 
 ```
 http://192.168.219.149/
-admin / openmediavalut
-chris / proxmox1@
+admin / ********
+chris / ********
 ```
 
 ## WebDAV
