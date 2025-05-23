@@ -5,27 +5,43 @@ auth:
   password: a-very-complex-password-here
 master:
   count: 1
-  # resources:
-  #   limits:
-  #     cpu: 1000m
-  #     memory: 256Mi
-  #   requests: 
-  #     cpu: 50m
-  #     memory: 10Mi
+  ## @param master.resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
+  ## Example:
+  resources:
+    requests:
+      # cpu: 2
+      memory: 128Mi
+    limits:
+      # cpu: 3
+      memory: 192Mi
+  ##
 replica:
   replicaCount: 3
-  # resources:
-    # limits:
-    #   cpu: 1000m
-    #   memory: 256Mi
-    # requests: 
-    #   cpu: 50m
-    #   memory: 10Mi
+  ## @param replica.resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
+  ## Example:
+  resources:
+    requests:
+      # cpu: 2
+      memory: 128Mi
+    limits:
+      # cpu: 3
+      memory: 192Mi
+  ##
 sentinel:
   enabled: true
   image:
     tag: 7.4.3
   masterSet: sentinel-master
+  ## @param sentinel.resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
+  ## Example:
+  resources:
+    requests:
+      # cpu: 2
+      memory: 129Mi
+    limits:
+      # cpu: 3
+      memory: 192Mi
+  ##
 
 ## Prometheus Exporter / Metrics
 ##
@@ -39,4 +55,13 @@ metrics:
     ## @param metrics.serviceMonitor.enabled If `true`, creates a Prometheus Operator ServiceMonitor (also requires `metrics.enabled` to be `true`)
     ##
     enabled: true
- 
+  ## @param metrics.resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
+  ## Example:
+  resources:
+    requests:
+      # cpu: 2
+      memory: 128Mi
+    limits:
+      # cpu: 3
+      memory: 192Mi
+  ##
