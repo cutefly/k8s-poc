@@ -1,0 +1,16 @@
+---
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx-tower
+spec:
+  # For NodePort Type
+  # service_type: NodePort
+  # service_port: 32080
+  #
+  # For CluterIP Type
+  # server_type: ClusterIP
+  ingress_type: ingress
+  ingress_hosts:
+    - hostname: awx.club012.com
+  ingress_controller: nginx

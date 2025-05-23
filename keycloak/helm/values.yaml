@@ -82,10 +82,3 @@ extraEnvVars:
 ##
 postgresql:
   enabled: true
-  auth:
-    postgresPassword: "postgres_password"
-    username: "keycloak"
-    password: "keycloak_password"
-    database: "keycloak"
-    existingSecret: ""
-  architecture: standalone
