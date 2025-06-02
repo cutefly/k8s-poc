@@ -1,16 +1,27 @@
+# AWX deploy
+# kubectl apply -f awx-tower.yml -n awx
 ---
 apiVersion: awx.ansible.com/v1beta1
 kind: AWX
 metadata:
   name: awx-tower
 spec:
-  # For NodePort Type
-  # service_type: NodePort
-  # service_port: 32080
-  #
-  # For CluterIP Type
-  # server_type: ClusterIP
+  # service_type: nodeport
   ingress_type: ingress
   ingress_hosts:
     - hostname: awx.club012.com
-  ingress_controller: nginx
+  ingress_controller: traefik
+  projects_persistence: true
+  projects_storage_size: 20Gi
+  projects_storage_access_mode: ReadWriteOnce
+  extra_settings:
+    - setting: CSRF_TRUSTED_ORIGINS
+      value:
+        - https://awx.club012.com
+#  web_resource_requirements:
+#    requests:
+#      cpu: 200m
+#      memory: 1Gi
+#    limits:
+#      cpu: 1000m
+#      memor: 2Gi
