@@ -19,7 +19,7 @@ Add the Bitnami repository:
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
 
 Install Keycloak using the Helm chart:
-$ helm install keycloak bitnami/keycloak --namespace keycloak --create-namespace -f values.yaml --version 15.1.8
+$ helm install keycloak bitnami/keycloak --namespace keycloak --create-namespace -f values.yaml --version 24.7.3
 $ helm install keycloak bitnami/keycloak --namespace keycloak --create-namespace -f values.yaml
 $ helm upgrade keycloak bitnami/keycloak --namespace keycloak -f values.yaml
 
@@ -29,24 +29,29 @@ This will install Keycloak using the Bitnami Helm chart with the release name "m
 $ helm uninstall keycloak --namespace keycloak
 ```
 
-## Installation(codecentric)
+### 중요사항
 
-> https://github.com/codecentric/helm-charts/tree/master/charts/keycloak
-
-```text
-ARM64에서 이슈가 있음.
-Postgresql을 외부 DB로 사용하는 경우 가능할 것으로 보임.
+```
+reverse proxy(nginx proxy manager)를 사용하는 경우에는 proxy: edge 설정 추가
 ```
 
-## oidc helper plugin
+### oidc helper plugin
 
 ```
 krew(plugin manager) 설치
 kubelogin 설치
-kubectl oidc-login get-token--oidc-issuer-url=https://keycloak.club012.com/realms/ldap-realm --oidc-client-id=k8s-client --oidc-client-secret=gnY7tTVOo7MN4GUqmBH7ex43lK7dn2aO --grant-type=password
+kubectl oidc-login get-token --oidc-issuer-url=https://keycloak.club012.com/realms/ldap-realm --oidc-client-id=k8s-client --oidc-client-secret=V60CJsW6vdg8WkFn2Pu658YSO6UmBUhv --grant-type=password
 ```
 
-## Minikube 연동
+### Minikube 연동
+
+```
+# Openldap 연동
+https://hs-note.tistory.com/23
+
+# kubernetes 연동
+https://wlsdn3004.tistory.com/62
+```
 
 ```sh
 minikube start
@@ -60,3 +65,4 @@ minikube start
     --extra-config=apiserver.oidc-groups-claim=groups
     --extra-config=apiserver.oidc-client-id=k8s-client
 ```
+

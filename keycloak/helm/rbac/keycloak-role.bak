@@ -1,9 +1,7 @@
-# kubectl apply -f keycloak-role.yaml
----
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: keycloak-users-role
+  name: keycloak-role
 rules:
 - apiGroups:
   - '*'
@@ -18,14 +16,17 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: keycloak-users-role-binding
+  name: keycloak-role-binding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: keycloak-users-role
+  name: keycloak-role
 subjects:
 - kind: Group
-  name: k8s-users-role
+  name: k8s-role
+  apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: ldap-role
   apiGroup: rbac.authorization.k8s.io
 ---
 kind: ClusterRoleBinding
@@ -39,4 +40,7 @@ roleRef:
 subjects:
 - kind: Group
   name: k8s-admin-role
+  apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: ldap-admin-role
   apiGroup: rbac.authorization.k8s.io
