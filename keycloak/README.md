@@ -23,11 +23,12 @@ $ helm uninstall keycloak --namespace keycloak
 
 ## LDAP 연동
 
-> keycloak admin 계정으로 로그인
+> https://hs-note.tistory.com/23
 
 ### Realm 생성 후 LDAP 연동
 
 ```
+Keycload Admin 게정으로 로그인(https://keycloak.club012.com)
 Manage realms -> Create realm : ldap-realm
 Current realm: ldap-realm
 
@@ -66,6 +67,8 @@ Member-Of LDAP Attribute: memberUid
 
 ## Kubernetes 연동
 
+> https://wlsdn3004.tistory.com/62
+
 ### k8s client 설정
 
 ```
@@ -98,7 +101,7 @@ Member-Of LDAP Attribute: memberUid
 $ kubectl oidc-login get-token \
   --oidc-issuer-url="https://auth.kpcard.co.kr/realms/ldap-realm" \
   --oidc-client-id="k8s-client" \
-  --oidc-client-secret="5aVm9AJOMzhqhptYITz3vfsXwrGsH34H" \
+  --oidc-client-secret="****************" \
   --grant-type=password
 ```
 
@@ -173,7 +176,7 @@ kubectl config set-credentials oidc \
   --exec-arg=get-token \
   --exec-arg=--oidc-issuer-url="https://keycloak.club012.com/realms/ldap-realm" \
   --exec-arg=--oidc-client-id="k8s-client" \
-  --exec-arg=--oidc-client-secret="V60CJsW6vdg8WkFn2Pu658YSO6UmBUhv" \
+  --exec-arg=--oidc-client-secret="*****************" \
   --grant-type=password
 
 kubectl config get-contexts
