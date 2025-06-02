@@ -48,6 +48,8 @@ Select the shared folder → Access Control List → set {your username}, "webda
 
 ## External Drive
 
+> https://it-svr.com/proxmox-disk-passthrought/
+
 ```sh
 $ qm set 108 -scsi1 /dev/disk/by-id/wwn-0x5000c500446b4f9e
 ```
@@ -59,3 +61,9 @@ shared(cifs) : ${disk.root}/shared
 webdav       : ${disk.root}/webdav/
 ```
 
+## plugins
+
+```
+openmediavault-webdav 7.0.8
+OpenMediaVault WebDAV plugin.
+```

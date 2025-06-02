@@ -40,7 +40,7 @@ lxc.cgroup2.devices.allow: c 10:200 rwm
 lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
 
 # restart lxc and start tailscale
-$ sudo tailscale set --exit-node= 100.68.232.48 --exit-node-allow-lan-access=true
+$ sudo tailscale set --exit-node=100.97.129.8 --exit-node-allow-lan-access=true
 ```
 
 ## WireGuard client

@@ -29,6 +29,7 @@ sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
 
 $ sudo tailscale up --advertise-routes=192.168.219.0/24
 
-add for tailscale
+# add for tailscale()
+Edit route settings of debian-tailscale
+check subnet routes(192.168.219.0/24)
 ```
-
