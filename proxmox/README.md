@@ -2,6 +2,8 @@
 
 ## install
 
+> N150 cpu 하드웨어 호환성 이슈가 있어 kernel 6.14 버전 적용
+
 ```
 Install Proxmox VE 8.4.1
 
@@ -33,7 +35,7 @@ URL : https://pve.club012.com/
 ## Reference
 
 ```
-SDN
+# SDN(8.4.1 버전에서는 불필요함)
 - https://pve.proxmox.com/wiki/Setup_Simple_Zone_With_SNAT_and_DHCP
 - https://www.virtualizationhowto.com/2024/03/proxmox-sdn-configuration-step-by-step/
 ```
@@ -51,5 +53,32 @@ systemctl restart pvestatd
 openmediavault_7.0-32-amd64.iso
 ubuntu
 rocky linux
+```
 
+## 시스템 설정 변경
+
+### Auto power on(AMI bios)
+
+> https://www.reddit.com/r/MiniPCs/comments/17ipj7j/how_to_automatically_start_on_turning_computer/
+```
+# Bios 수정
+AMI BOIS 2.23.1287 Tab: chipset PCH-IO configuration 
+Wake on power on (set to S0 state) 
+```
+
+### Sleep mode 전환 방지
+
+> https://askubuntu.com/questions/1076623/ubuntu-server-keeps-suspending-when-external-monitor-is-disconnected
+
+```
+# 가급적 bios 수정을 피하고자 함.
+# /etc/systemd/logind.conf 수정
+HandleLidSwitch=ignore
+HandleLidSwitchDocked=ignore
+HandleSuspendKey=ignore
+HandleHibernateKey=ignore
+IdleAction=ignore
+
+# logind 서비스 재시작
+sudo systemctl restart systemd-logind
 ```

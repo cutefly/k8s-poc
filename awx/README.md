@@ -12,3 +12,16 @@ kubectl apply -n awx -f awx-tower.yaml
 
 kubectl delete awx awx-tower
 ```
+
+## Ansible AWX
+
+> https://awx.club012.com/
+
+
+```
+User: admin
+Token: cpbYuJUHDQwoeP7K7BfyWOMOBdmhqB
+
+User: pi
+
+```

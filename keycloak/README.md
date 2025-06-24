@@ -47,7 +47,7 @@ Edit mode: READ_ONLY
 User DN: ou=users,dc=kpcard,dc=co,dc=kr
 Username LDAP attribute: uid
 UUID LDAP attribute: cn
-User object classes: inetOrgPerson, organizationPerson, posixAccount
+User object classes: inetOrgPerson, organizationalPerson, posixAccount
 
 - Mappers
 Add Mapper
@@ -99,9 +99,9 @@ Member-Of LDAP Attribute: memberUid
 3. OIDC 연동 설정 확인
 # get token 확인(oidc-login plugin 설치 후)
 $ kubectl oidc-login get-token \
-  --oidc-issuer-url="https://auth.kpcard.co.kr/realms/ldap-realm" \
+  --oidc-issuer-url="https://keycloak.club012.com/realms/ldap-realm" \
   --oidc-client-id="k8s-client" \
-  --oidc-client-secret="****************" \
+  --oidc-client-secret="V60CJsW6vdg8WkFn2Pu658YSO6UmBUhv" \
   --grant-type=password
 ```
 

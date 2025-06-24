@@ -105,3 +105,92 @@ configs:
       g, jenkins-admin, role:admin
       g, jenkins-users, role:devuser
 ```
+
+### oidc login
+
+> https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/keycloak/
+
+```
+# LDAP 연동은 완료된 후 진행
+realm: sso-realm
+client-id: argocd-client
+
+# Client 생성
+Clients -> Create client : argocd-client
+Root URL: https://argocd.club012.com
+Home URL: /applications
+Valid redirect URIs: https://argocd.club012.com/auth/callback
+Valid post logout redirect URIs: https://argocd.club012.com/applications, https://argocd.club012.com/
+Web origins: *
+Admin URL: https://argocd.club012.com
+Client authentication: On
+Authentication flow: Standard flow, Direct access grants
+
+Client Scope -> Create client scope
+[Settings]
+Name: groups
+Type: None
+Display on consent screen: On
+Include in token scope: On
+[Meppers]
+Add mapper -> by configuration
+Name: groups
+Mapper type: Group Membership
+Full group path: Off
+Add to ID token: On
+Add to access token: On
+Add to userinfo: On
+
+Clients -> argocd-client -> Client scope
+Add client scope
+groups 선택 후 Add(Default)
+```
+
+### Get Token 확인
+
+```
+$ kubectl oidc-login get-token \
+  --oidc-issuer-url="https://keycloak.club012.com/realms/sso-realm" \
+  --oidc-client-id="argocd-client" \
+  --oidc-client-secret="RSPniIjycPM2IeEmKMN8WCQvyaTHQcWG" \
+  --grant-type=password
+```
+
+### group policy mapping
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+data:
+  policy.csv: |
+    g, admin, role:admin
+```
+
+### oidc
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+data:
+  url: https://argocd.club012.com
+  oidc.config: |
+    name: Keycloak
+    issuer: https://keycloak.club012.com/realms/sso-realm
+    clientID: argocd-client
+    clientSecret: RSPniIjycPM2IeEmKMN8WCQvyaTHQcWG
+    requestedScopes: ["openid", "profile", "email", "groups"]
+    requestedIDTokenClaims: {"groups": {"essential": true}}
+    logoutURL: https://keycloak.club012.com/realms/sso-realm/protocol/openid-connect/logout?id_token_hint={{token}}&post_logout_redirect_uri=https://argocd.club012.com/applications
+```
+
+## ArgoCD with keycloak login
+
+> https://argocd.club012.com/
+
+
+
+

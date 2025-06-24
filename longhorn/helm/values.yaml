@@ -1,0 +1,18 @@
+defaultSettings:
+  defaultReplicaCount: 1  # 단일 노드이므로 복제본 1개만 생성
+
+  # Minikube의 기본 디스크 경로 지정 (생략하면 /var/lib/longhorn 사용)
+  defaultDataPath: "/var/lib/longhorn"
+
+  # Node 다운 시 볼륨 자동 복구 비활성화 (단일 노드라 무의미)
+  replicaAutoBalance: "disabled"
+  replicaSoftAntiAffinity: true
+
+ingress:
+  enabled: true
+  host: "longhorn.club012.com"
+  ingressClassName: "nginx"
+
+persistence:
+  defaultClass: false
+  defaultClassReplicaCount: 1
