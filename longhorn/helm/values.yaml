@@ -12,9 +12,20 @@ ingress:
   enabled: true
   host: "longhorn.club012.com"
   ingressClassName: "traefik"
-  annotations: |
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls: true
+  tlsSecret: "longhorn-tls"  # Let's Encrypt 인증
+  annotations:
+    - cert-manager.io/cluster-issuer: letsencrypt-prod
 
 persistence:
   defaultClass: false
   defaultClassReplicaCount: 1
+
+csi:
+  attacherReplicaCount: 1
+  provisionerReplicaCount: 1
+  resizerReplicaCount: 1
+  snapshotterReplicaCount: 1
+
+longhornUI:
+  replicas: 1
