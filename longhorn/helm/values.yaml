@@ -11,7 +11,9 @@ defaultSettings:
 ingress:
   enabled: true
   host: "longhorn.club012.com"
-  ingressClassName: "nginx"
+  ingressClassName: "traefik"
+  annotations: |
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 
 persistence:
   defaultClass: false

@@ -13,7 +13,8 @@ spec:
       tls_secret: awx-tls
   ingress_controller: traefik
   ingress_annotations: | 
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+    # cert-manager.io/cluster-issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   projects_persistence: true
   projects_storage_size: 20Gi
   projects_storage_access_mode: ReadWriteOnce
