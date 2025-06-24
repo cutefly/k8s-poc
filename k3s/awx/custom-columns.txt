@@ -1,0 +1,23 @@
+kubectl get pods -A -o custom-columns=\
+NAMESPACE:.metadata.namespace,\
+POD:.metadata.name,\
+CPU_REQUEST:.spec.containers[*].resources.requests.cpu,\
+MEM_REQUEST:.spec.containers[*].resources.requests.memory,\
+CPU_LIMIT:.spec.containers[*].resources.limits.cpu,\
+MEM_LIMIT:.spec.containers[*].resources.limits.memory
+
+kubectl get pods -A -o custom-columns=\
+"POD:.metadata.name,\
+CPU_REQUEST:.spec.containers[*].resources.requests.cpu,\
+MEM_REQUEST:.spec.containers[*].resources.requests.memory,\
+CPU_LIMIT:.spec.containers[*].resources.limits.cpu,\
+MEM_LIMIT:.spec.containers[*].resources.limits.memory"
+
+kubectl get pods -A -o custom-columns=POD:.metadata.name,CPU_REQUEST:.spec.resources.requests.cpu
+
+kubectl get pods -A -o custom-columns=\
+POD:.metadata.name,\
+CPU_REQUEST:.spec.resources.requests.cpu,\
+MEM_REQUEST:.spec.resources.requests.memory,\
+CPU_LIMIT:.spec.resources.limits.cpu,\
+MEM_LIMIT:.spec.resources.limits.memory

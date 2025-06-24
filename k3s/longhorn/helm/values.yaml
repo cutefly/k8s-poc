@@ -1,5 +1,5 @@
 defaultSettings:
-  defaultReplicaCount: 1  # 단일 노드이므로 복제본 1개만 생성
+  defaultReplicaCount: 1 # 단일 노드이므로 복제본 1개만 생성
 
   # Minikube의 기본 디스크 경로 지정 (생략하면 /var/lib/longhorn 사용)
   defaultDataPath: "/var/lib/longhorn"
@@ -13,9 +13,9 @@ ingress:
   host: "longhorn.club012.com"
   ingressClassName: "traefik"
   tls: true
-  tlsSecret: "longhorn-tls"  # Let's Encrypt 인증
+  tlsSecret: "longhorn-tls" # Let's Encrypt 인증
   annotations:
-    - cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 
 persistence:
   defaultClass: false
