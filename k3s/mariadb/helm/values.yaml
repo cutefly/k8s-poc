@@ -1,0 +1,10 @@
+architecture: standalone
+
+auth:
+  rootPassword: "proxmox"
+
+primary:
+  persistence:
+    enabled: true
+    storageClass: longhorn
+    size: 1Gi
