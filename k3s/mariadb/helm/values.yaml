@@ -1,10 +1,36 @@
+## @param architecture MariaDB architecture (`standalone` or `replication`)
+##
 architecture: standalone
 
+## MariaDB Authentication parameters
+##
 auth:
+  ## @param auth.rootPassword Password for the `root` user. Ignored if existing secret is provided.
+  ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mariadb#setting-the-root-password-on-first-run
+  ##
   rootPassword: "proxmox"
 
+## @section MariaDB Primary parameters
+##
+
+## Mariadb Primary parameters
+##
 primary:
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+  ##
   persistence:
+    ## @param primary.persistence.enabled Enable persistence on MariaDB primary replicas using a `PersistentVolumeClaim`. If false, use emptyDir
+    ##
     enabled: true
+    ## @param primary.persistence.storageClass MariaDB primary persistent volume storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
     storageClass: longhorn
+    ## @param primary.persistence.size MariaDB primary persistent volume size
+    ##
     size: 1Gi

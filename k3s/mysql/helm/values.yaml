@@ -1,0 +1,74 @@
+## @param architecture MySQL architecture (`standalone` or `replication`)
+##
+architecture: replication
+## MySQL Authentication parameters
+##
+auth:
+  ## @param auth.rootPassword Password for the `root` user. Ignored if existing secret is provided
+  ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mysql#setting-the-root-password-on-first-run
+  ##
+  rootPassword: "proxmox"
+  ## @param auth.replicationPassword MySQL replication user password. Ignored if existing secret is provided
+  ##
+  replicationPassword: "proxmox"
+
+## @section MySQL Primary parameters
+##
+primary:
+  ## @param primary.extraEnvVars Extra environment variables to be set on MySQL primary containers
+  ## E.g.
+  ## extraEnvVars:
+  ##  - name: TZ
+  ##    value: "Europe/Paris"
+  ##
+  extraEnvVars:
+    - name: TZ
+      value: "Asia/Seoul"
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+  ##
+  persistence:
+    ## @param primary.persistence.enabled Enable persistence on MySQL primary replicas using a `PersistentVolumeClaim`. If false, use emptyDir
+    ##
+    enabled: true
+    ## @param primary.persistence.storageClass MySQL primary persistent volume storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    storageClass: "longhorn"
+    ## @param primary.persistence.size MySQL primary persistent volume size
+    ##
+    size: 1Gi
+## @section MySQL Secondary parameters
+##
+secondary:
+  ## @param secondary.replicaCount Number of MySQL secondary replicas
+  ##
+  replicaCount: 1
+  ## @param secondary.extraEnvVars An array to add extra environment variables on MySQL secondary containers
+  ## E.g.
+  ## extraEnvVars:
+  ##  - name: TZ
+  ##    value: "Europe/Paris"
+  ##
+  extraEnvVars:
+    - name: TZ
+      value: "Asia/Seoul"
+  persistence:
+    ## @param secondary.persistence.enabled Enable persistence on MySQL secondary replicas using a `PersistentVolumeClaim`
+    ##
+    enabled: true
+    ## @param secondary.persistence.storageClass MySQL secondary persistent volume storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    storageClass: "longhorn"
+    ## @param secondary.persistence.size MySQL secondary persistent volume size
+    ##
+    size: 1Gi
