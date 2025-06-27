@@ -1,64 +1,57 @@
-# Lets encrypt
+# Cert manager on kubernetes
 
-## install cert manager
+## install cert-maanger
 
-```sh
-# https://cert-manager.io/docs/installation/kubectl/
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.0/cert-manager.yaml
+> <https://cert-manager.io/docs/installation/helm/>
+
+```
+helm repo add jetstack https://charts.jetstack.io --force-update
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.17.2 \
+  --set crds.enabled=true
 ```
 
-## configure nginx
+## install cluster issuer
+
+> <https://hbayraktar.medium.com/installing-cert-manager-and-nginx-ingress-with-lets-encrypt-on-kubernetes-fe0dff4b1924>
 
 ```yaml
-# https://github.com/kubernetes/ingress-nginx/tree/main/charts/ingress-nginx
-controller:
-  # 추가
-  admissionWebhooks:
-    certManager:
-      enabled: "true"
+# letsencrypt-staging.yaml
+# https://hbayraktar.medium.com/installing-cert-manager-and-nginx-ingress-with-lets-encrypt-on-kubernetes-fe0dff4b1924
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: prettyfly@korea.com
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    solvers:
+    - http01:
+        ingress:
+          class: traefik
 ```
 
-## Lets Encrypt
-
-```sh
-$ kubectl apply -f letsencrypt-staging.yaml
-$ kubectl apply -f letsencrypt-prod.yaml
+```yaml
+# letsencrypt-prod.yaml
+# https://hbayraktar.medium.com/installing-cert-manager-and-nginx-ingress-with-lets-encrypt-on-kubernetes-fe0dff4b1924
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: prettyfly@korea.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - http01:
+        ingress:
+          class: traefik
 ```
-
-## Add Cert Manager to Minikube Nginx Addon
-
-To add Cert Manager to the Nginx addon in Minikube, you can follow these steps:
-
-1. Start Minikube with the Nginx addon enabled:
-
-```sh
-minikube start --addons=ingress
-```
-
-2. Install Cert Manager using the official Helm chart:
-
-```sh
-helm repo add jetstack https://charts.jetstack.io
-helm repo update
-helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.5.3
-```
-
-3. Verify that Cert Manager is running:
-
-```sh
-kubectl get pods --namespace cert-manager
-```
-
-4. Configure the Nginx Ingress Controller to use Cert Manager:
-
-```sh
-minikube addons configure ingress --addon-namespace=cert-manager
-```
-
-5. Restart the Nginx Ingress Controller:
-
-```sh
-minikube addons enable ingress
-```
-
-After following these steps, Cert Manager will be added to the Nginx addon in Minikube, allowing you to manage SSL certificates for your applications.
