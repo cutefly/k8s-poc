@@ -51,4 +51,4 @@ metadata:
   namespace: cert-manager
 type: Opaque
 stringData:
-  api-token: 7gCiiCuNiPsCgTU55wFQTwySXo075pSk8Y9DNeiJ
+  api-token: ${api-token}
