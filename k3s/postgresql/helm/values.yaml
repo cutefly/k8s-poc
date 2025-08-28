@@ -1,0 +1,153 @@
+## @section Global parameters
+## Please, note that this will override the parameters, including dependencies, configured to use the global value
+##
+global:
+  ## Security parameters
+  ##
+  security:
+    ## @param global.security.allowInsecureImages Allows skipping image verification
+    allowInsecureImages: false
+
+## Authentication parameters
+## ref: https://github.com/bitnami/containers/tree/main/bitnami/postgresql#setting-the-root-password-on-first-run
+## ref: https://github.com/bitnami/containers/tree/main/bitnami/postgresql#creating-a-database-on-first-run
+## ref: https://github.com/bitnami/containers/tree/main/bitnami/postgresql#creating-a-database-user-on-first-run
+##
+auth:
+  ## @param auth.postgresPassword Password for the "postgres" admin user. Ignored if `auth.existingSecret` is provided
+  ##
+  postgresPassword: "newPostgresPassword123"
+  ## @param auth.username Name for a custom user to create
+  ##
+  username: "gpgc_user"
+  ## @param auth.password Password for the custom user to create. Ignored if `auth.existingSecret` is provided
+  ##
+  password: "gpgc12!@"
+  ## @param auth.replicationPassword Password for the replication user. Ignored if `auth.existingSecret` is provided
+  ##
+  replicationPassword: "newReplicationPassword123"
+
+## @param architecture PostgreSQL architecture (`standalone` or `replication`)
+##
+architecture: "replication"
+
+## @section PostgreSQL Primary parameters
+##
+primary:
+  ## @param primary.extraEnvVars Array with extra environment variables to add to PostgreSQL Primary nodes
+  ## e.g:
+  ## extraEnvVars:
+  ##   - name: FOO
+  ##     value: "bar"
+  ##
+  extraEnvVars:
+    - name: TZ
+      value: "Asia/Seoul"
+    - name: POSTGRESQL_INITDB_ARGS
+      value: "--locale-provider=icu --icu-locale=ko-KR-x-icu"
+      #value: "--locale-provider=icu --icu-locale=ko-KR"
+
+  ## Initdb configuration
+  ## ref: https://github.com/bitnami/containers/tree/main/bitnami/postgresql#specifying-initdb-arguments
+  ##
+  initdb:
+    ## @param primary.initdb.scripts Dictionary of initdb scripts
+    ## Specify dictionary of scripts to be run at first boot
+    ## e.g:
+    ## scripts:
+    ##   my_init_script.sh: |
+    ##      #!/bin/sh
+    ##      echo "Do something."
+    ##
+    scripts:
+      init_script.sh: |
+        #!/bin/sh
+        echo "Running custom init script."
+      database_setup.sql: |
+        CREATE DATABASE gpgc_db WITH OWNER=gpgc_user TEMPLATE=template0 IS_TEMPLATE=false;
+  ## @param primary.resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
+  ## Example:
+  ## resources:
+  ##   requests:
+  ##     cpu: 2
+  ##     memory: 512Mi
+  ##   limits:
+  ##     cpu: 3
+  ##     memory: 1024Mi
+  ##
+  resources: {}
+  ## PostgreSQL Primary persistence configuration
+  ##
+  persistence:
+    ## @param primary.persistence.storageClass PVC Storage Class for PostgreSQL Primary data volume
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    storageClass: longhorn
+    ## @param primary.persistence.size PVC Storage Request for PostgreSQL volume
+    ##
+    size: 1Gi
+
+## @section PostgreSQL read only replica parameters (only used when `architecture` is set to `replication`)
+##
+readReplicas:
+  ## @param readReplicas.replicaCount Number of PostgreSQL read only replicas
+  ##
+  replicaCount: 1
+  ## @param readReplicas.extraEnvVars Array with extra environment variables to add to PostgreSQL read only nodes
+  ## e.g:
+  ## extraEnvVars:
+  ##   - name: FOO
+  ##     value: "bar"
+  ##
+  extraEnvVars:
+    - name: TZ
+      value: "Asia/Seoul"
+  ## @param readReplicas.resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
+  ## Example:
+  ## resources:
+  ##   requests:
+  ##     cpu: 2
+  ##     memory: 512Mi
+  ##   limits:
+  ##     cpu: 3
+  ##     memory: 1024Mi
+  ##
+  resources: {}
+  ## PostgreSQL read only persistence configuration
+  ##
+  persistence:
+    ## @param readReplicas.persistence.storageClass PVC Storage Class for PostgreSQL read only data volume
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    storageClass: longhorn
+    ## @param readReplicas.persistence.size PVC Storage Request for PostgreSQL volume
+    ##
+    size: 1Gi
+
+## @section Password update job
+##
+passwordUpdateJob:
+  ## @param passwordUpdateJob.enabled Enable password update job
+  ##
+  enabled: true
+
+## @section Metrics Parameters
+##
+metrics:
+  ## @param metrics.enabled Start a prometheus exporter
+  ##
+  enabled: false
+  ## Prometheus Operator ServiceMonitor configuration
+  ##
+  serviceMonitor:
+    ## @param metrics.serviceMonitor.enabled Create ServiceMonitor Resource for scraping metrics using Prometheus Operator
+    ##
+    enabled: true
