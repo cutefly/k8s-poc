@@ -21,10 +21,9 @@ global:
 architecture: "replication"
 
 auth:
-  postgresPassword:
-    "proxmox1@"
-    #username: "gpgc_user"
-  #password: "gpgc12!@"
+  postgresPassword: "proxmox1@"
+  # username: "gpgc_user"
+  # password: "gpgc12!@"
   replicationPassword: "replica1@"
 
 ## @section PostgreSQL Primary parameters
