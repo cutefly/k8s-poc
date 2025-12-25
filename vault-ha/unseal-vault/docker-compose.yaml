@@ -1,0 +1,25 @@
+# version: "3.8"
+
+services:
+  unseal-vault:
+    image: hashicorp/vault:1.15
+    container_name: unseal-vault
+    hostname: unseal-vault
+    cap_add:
+      - IPC_LOCK
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./vault/config:/vault/config
+      - ./vault/data:/vault/data
+      - ./init-transit.sh:/init-transit.sh
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      VAULT_ADDR: http://127.0.0.1:8200
+    command: vault server -config=/vault/config/vault.hcl
+    networks:
+      - vault-net
+networks:
+  vault-net:
+    external: true
