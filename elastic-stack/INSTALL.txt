@@ -1,0 +1,41 @@
+  ______ _           _   _
+ |  ____| |         | | (_)
+ | |__  | | __ _ ___| |_ _  ___
+ |  __| | |/ _` / __| __| |/ __|
+ | |____| | (_| \__ \ |_| | (__
+ |______|_|\__,_|___/\__|_|\___|
+-------------------------------------------------
+🚀 Run Elasticsearch and Kibana for local testing
+-------------------------------------------------
+
+ℹ️  Do not use this script in a production environment
+
+⌛️ Setting up Elasticsearch and Kibana v9.1.4...
+
+- Generated random passwords
+- Created the elastic-start-local folder containing the files:
+  - .env, with settings
+  - docker-compose.yml, for Docker services
+  - start/stop/uninstall commands
+- Running docker compose up --wait
+
+[+] Running 6/6
+ ✔ Network elastic-start-local_default           Created                                                                                                                     0.0s
+ ✔ Volume elastic-start-local_dev-elasticsearch  Created                                                                                                                     0.0s
+ ✔ Volume elastic-start-local_dev-kibana         Created                                                                                                                     0.0s
+ ✔ Container es-local-dev                        Healthy                                                                                                                    42.2s
+ ✔ Container kibana-local-settings               Exited                                                                                                                     42.1s
+ ✔ Container kibana-local-dev                    Healthy                                                                                                                    79.6s
+
+🎉 Congrats, Elasticsearch and Kibana are installed and running in Docker!
+
+🌐 Open your browser at http://localhost:5601
+
+   Username: elastic
+   Password: QIm6VoTB
+
+🔌 Elasticsearch API endpoint: http://localhost:9200
+🔑 API key: TlczVW1wa0JfQkNHdmtsQ3VTX0w6aWZkb29fWFd3ZXd5eFlOcjFNUmhrUQ==
+
+
+Learn more at https://github.com/elastic/start-local
