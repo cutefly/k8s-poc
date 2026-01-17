@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vault-injector-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vault-injector-webapp
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "k3s-kubernetes-role"
+        # Vault Token 파일 주입
+        vault.hashicorp.com/agent-inject-token: "true"
+        # Vault 주소
+        vault.hashicorp.com/vault-addr: "https://vault.club012.com"
+        # init container is the only injected container(no sidecar container)
+        vault.hashicorp.com/agent-pre-populate-only: "true"
+        vault.hashicorp.com/agent-inject-secret-application.properties: "secret/data/vault-secret/local"
+        vault.hashicorp.com/agent-inject-template-application.properties: |
+          {{- with secret "secret/data/vault-secret/local" -}}
+          {{- range $key, $value := .Data.data }}
+          {{ $key }}={{ $value }}
+          {{- end }}
+          {{- end }}
+      labels:
+        app: vault-injector-webapp
+    spec:
+      serviceAccountName: vault-auth
+      containers:
+        - name: webapp
+          image: burtlo/devwebapp-ruby:k8s
+          env:
+            - name: VAULT_ADDR
+              value: "https://vault.club012.com"
+            - name: VAULT_TOKEN_FILE
+              value: "/vault/secrets/token"
