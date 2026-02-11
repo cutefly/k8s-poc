@@ -56,19 +56,20 @@ $ export K8S_HOST=$(kubectl config view --raw --minify --flatten \
 
 # Tell Vault how to communicate with the Kubernetes
 $ vault write auth/kubernetes/config \
-     token_reviewer_jwt="$SA_JWT_TOKEN" \
-     kubernetes_host="$K8S_HOST" \
-     kubernetes_ca_cert="$SA_CA_CRT" \
-     issuer="https://kubernetes.default.svc.cluster.local"
+    token_reviewer_jwt="$SA_JWT_TOKEN" \
+    kubernetes_host="$K8S_HOST" \
+    kubernetes_ca_cert="$SA_CA_CRT" \
+    issuer="https://kubernetes.default.svc.cluster.local"
 
 # maps the Kubernetes Service Account to Vault policies
 $ vault write auth/kubernetes/role/k3s-kubernetes-role \
-     bound_service_account_names="vault-auth" \
-     bound_service_account_namespaces="*" \
-     token_policies="secret-read-only" \
-     audience=https://kubernetes.default.svc.cluster.local \
-     ttl=1h
-
+    bound_service_account_names="vault-auth" \
+    bound_service_account_namespaces="*" \
+    token_policies="secret-read-only" \
+    audience=https://kubernetes.default.svc.cluster.local \
+    ttl="1h" \
+    explicit_max_ttl="24h" \
+    renewable=false
 ```
 
 ### Verify the Kubernetes auth method configuration
@@ -131,6 +132,28 @@ $ kubectl exec --stdin=true --tty=true -n vault devwebapp -- /bin/sh
 ```
 
 ### Vault agent injector
+
+> vault agent를 사용하기 위해 kubernetes cluster에 vault
+```sh
+helm repo add hashicorp https://helm.releases.hashicorp.com
+
+helm repo update
+
+helm install vault hashicorp/vault \
+     --namespace vault \
+     --create-namespace \
+     --version=0.32.0 \
+     --set "global.externalVaultAddr=https://vault.club012.com"
+
+helm upgrade vault hashicorp/vault \
+     --namespace vault \
+     --version=0.32.0 \
+     --set "global.externalVaultAddr=https://vault.club012.com"
+
+helm uninstall vault --namespace vault
+
+kubectl describe serviceaccount vault --namespace vault
+```
 
 ```sh
 # template에서 오류가 발생하는 경우 yaml 파일을 생성한 후 apply 할 것
