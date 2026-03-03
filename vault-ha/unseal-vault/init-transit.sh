@@ -42,6 +42,6 @@ path "transit/decrypt/vault-unseal" {
 EOF
 
 # Token 생성
-vault token create -policy=unseal -orphan > /vault/data/unseal-token.txt
+vault token create -policy=unseal -period=24h -renewable=true -orphan > /vault/data/unseal-token.txt
 
 echo "✅ Transit Unseal Vault ready"
