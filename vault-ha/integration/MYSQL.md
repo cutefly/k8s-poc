@@ -34,7 +34,7 @@ vault secrets tune -description="database credential store" database # change de
 vault write database/config/db-mysql-database \
     plugin_name=mysql-database-plugin \
     connection_url="{{username}}:{{password}}@tcp(db.club012.com:3306)/" \
-    allowed_roles="db-mysql-role" \
+    allowed_roles="*" \
     username="vault_admin" \
     password="${VAULT_ADMIN_PASSWORD}"
 
@@ -100,4 +100,19 @@ Key                                   Value
 password_policy                       database
 
 $ vault read database/creds/db-mysql-role
+```
+
+## vibe_db credential
+
+```sh
+# db-mysql-database 생성된 connection 정보 이용(allowed_roles="*")
+
+vault write database/roles/vibe-mysql-role \
+    db_name=db-mysql-database \
+    creation_statements="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}'; \
+    GRANT SELECT,INSERT,UPDATE, DELETE ON vibe_db.* TO '{{name}}'@'%';" \
+    default_ttl="1h" \
+    max_ttl="24h"
+
+vault read database/creds/vibe-mysql-role
 ```
