@@ -7,8 +7,8 @@
 ```
 $ helm repo add argo https://argoproj.github.io/argo-helm
 
-$ helm install argocd argo/argo-cd --namespace argocd --create-namespace -f values.yaml
-$ helm upgrade argocd argo/argo-cd --namespace argocd -f values.yaml
+$ helm install argocd argo/argo-cd --namespace argocd --version 10.1.4 --create-namespace -f values.yaml
+$ helm upgrade argocd argo/argo-cd --namespace argocd --version 10.1.4 -f values.yaml
 
 helm delete argocd --namespace argocd
 
@@ -190,7 +190,3 @@ data:
 ## ArgoCD with keycloak login
 
 > https://argocd.club012.com/
-
-
-
-
