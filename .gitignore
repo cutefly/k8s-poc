@@ -2,3 +2,4 @@
 istio-1.13.1/
 playground/
 .idea/
+**/.env
