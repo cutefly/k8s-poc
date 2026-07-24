@@ -16,23 +16,12 @@ metadata:
     app.kubernetes.io/part-of: argocd
   name: argocd-cm
 data:
-  url: https://argocd.club012.com
   # add an additional local user with apiKey and login capabilities
   #   apiKey - allows generating API keys
   #   login - allows to login using UI
   accounts.devuser: apiKey, login
   # disables user. User is enabled by default
   # accounts.devuser.enabled: "false"
-  oidc.config: |
-    name: Keycloak
-    issuer: https://keycloak.club012.com/realms/devops
-    clientID: argocd
-    clientSecret: NGnMdChB4AhsOUPy45nbXSyLq4hJb1g8Jt009WXhiYSbJ8i7c2fjEUWcnLadHG7sZr82vafUjza4I22Q0V1SSG
-    refreshTokenThreshold: 2m
-    requestedScopes: ["openid", "profile", "email", "groups"]
-    # options
-    # requestedIDTokenClaims: {"groups": {"essential": true}}
-    logoutURL: https://keycloak.club012.com/realms/devops/protocol/openid-connect/logout?id_token_hint={{token}}&post_logout_redirect_uri=https://argocd.club012.com/applications
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -50,22 +39,4 @@ data:
     p, role:devuser, repositories, create, *, allow
     p, role:devuser, repositories, update, *, allow
     p, role:devuser, repositories, delete, *, allow
-    g, jenkins-admin, role:admin
-    g, jenkins-users, role:devuser
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: argocd-server-ingress
-spec:
-  rules:
-    - host: argocd.club012.com
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: argocd-server
-                port:
-                  name: http
+    g, devuser, role:devuser

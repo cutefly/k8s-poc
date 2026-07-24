@@ -1,8 +1,17 @@
+# Ingress for the deployment
+ingress:
+  # -- Enable an ingress resource for the deployment
+  enabled: true
+  # -- Defines which ingress controller will implement the resource
+  ingressClassName: "traefik"
+  # -- deployment hostname
+  # @default -- `""` (defaults to global.domain)
+  hostname: "argocd-image-updater.club012.com"
 config:
   registries:
-  - name: KPC Registry
-    prefix: docker.kpcard.co.kr
-    api_url: https://docker.kpcard.co.kr
-    credentials: pullsecret:argocd/kpcard-registry-cred
-    insecure: true
-    default: true
+    - name: Club012 Registry
+      prefix: docker.club012.com
+      api_url: https://docker.club012.com
+      credentials: pullsecret:argocd/nexus-registry-cred
+      insecure: true
+      default: true
