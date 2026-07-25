@@ -17,9 +17,9 @@ $ helm delete argocd-image-updater --namespace argocd
 
 ```
 kubectl delete secret -n argocd nexus-registry-cred
-
-kubectl create secret -n argocd docker-registry nexus-registry-cred --docker-server='docker.club012.com' --docker-username='chris' --docker-password='ldap4827' --docker-email='chris@kpcard.co.kr'
+kubectl create secret -n argocd docker-registry nexus-registry-cred --docker-server='docker.club012.com' --docker-username='chris' --docker-password='${DOCKER_PASSWORD}' --docker-email='chris@kpcard.co.kr'
 
 # workload namespace에도 credential 추가
-kubectl create secret -n argoproj-namespace docker-registry nexus-registry-cred --docker-server='docker.club012.com' --docker-username='chris' --docker-password='ldap4827' --docker-email='chris@kpcard.co.kr'
+kubectl delete secret -n argoproj-namespace nexus-registry-cred
+kubectl create secret -n argoproj-namespace docker-registry nexus-registry-cred --docker-server='docker.club012.com' --docker-username='chris' --docker-password='${DOCKER_PASSWORD}' --docker-email='chris@kpcard.co.kr'
 ```
