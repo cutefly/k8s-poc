@@ -23,3 +23,9 @@ kubectl create secret -n argocd docker-registry nexus-registry-cred --docker-ser
 kubectl delete secret -n argoproj-namespace nexus-registry-cred
 kubectl create secret -n argoproj-namespace docker-registry nexus-registry-cred --docker-server='docker.club012.com' --docker-username='chris' --docker-password='${DOCKER_PASSWORD}' --docker-email='chris@kpcard.co.kr'
 ```
+
+```
+cat config.json | base64 | tr -d '\n'
+kubectl apply -n argocd -f secret.yaml
+kubectl apply -n argoproj-namespace -f secret.yaml
+```
