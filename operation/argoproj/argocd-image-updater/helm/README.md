@@ -8,7 +8,7 @@
 $ helm repo add argo https://argoproj.github.io/argo-helm
 
 $ helm install argocd-image-updater argo/argocd-image-updater --namespace argocd --version 0.14.0 --create-namespace -f values.yaml
-$ helm upgrade argocd-image-updater argo/argocd-image-updater --namespace argocd --version 0.14.0 -f values.yaml
+$ helm upgrade argocd-image-updater argo/argocd-image-updater --namespace argocd --version 1.2.4 -f values.yaml
 
 $ helm delete argocd-image-updater --namespace argocd
 ```

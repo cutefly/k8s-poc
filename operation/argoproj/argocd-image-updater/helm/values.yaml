@@ -1,3 +1,9 @@
+# -- Extra arguments for argocd-image-updater not defined in `config.argocd`.
+# If a flag contains both key and value, they need to be split to a new entry.
+extraArgs:
+  - --interval
+  - 60m
+
 # Ingress for the deployment
 ingress:
   # -- Enable an ingress resource for the deployment
@@ -7,7 +13,11 @@ ingress:
   # -- deployment hostname
   # @default -- `""` (defaults to global.domain)
   hostname: "argocd-image-updater.club012.com"
+
 config:
+  # -- Argo CD Image Update log level
+  log.level: "info"
+  # -- Argo CD Image Updater registries list configuration. More information [here](https://argocd-image-updater.readthedocs.io/en/stable/configuration/registries/).
   registries:
     - name: Club012 Registry
       prefix: docker.club012.com
