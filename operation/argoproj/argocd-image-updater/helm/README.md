@@ -28,4 +28,5 @@ kubectl create secret -n argoproj-namespace docker-registry nexus-registry-cred 
 cat config.json | base64 | tr -d '\n'
 kubectl apply -n argocd -f secret.yaml
 kubectl apply -n argoproj-namespace -f secret.yaml
+kubectl apply -n nextjs-namespace -f secret.yaml
 ```

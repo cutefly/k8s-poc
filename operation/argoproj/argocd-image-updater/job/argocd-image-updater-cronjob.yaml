@@ -48,3 +48,16 @@ spec:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
+              volumeMounts:
+                - mountPath: /app/config
+                  name: image-updater-conf
+          volumes:
+            - configMap:
+                items:
+                  - key: registries.conf
+                    path: registries.conf
+                  - key: git.commit-message-template
+                    path: commit.template
+                name: argocd-image-updater-config
+                optional: true
+              name: image-updater-conf
