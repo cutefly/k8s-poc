@@ -6,7 +6,7 @@ metadata:
   name: argocd-image-updater-cronjob
   # namespace: argocd
   labels:
-    app.kubernetes.io/name: argocd-image-updater-job
+    app.kubernetes.io/name: argocd-image-updater-cronjob
 spec:
   # 💡 2월 31일 0시 0분 -> 달력에 없는 날짜이므로 스케줄러에 의해 자동 실행되지 않음
   schedule: "0 0 31 12 *"
@@ -24,7 +24,7 @@ spec:
       template:
         metadata:
           labels:
-            app.kubernetes.io/name: argocd-image-updater-job
+            app.kubernetes.io/name: argocd-image-updater-cronjob
         spec:
           # Argo CD Image Updater 서비스 계정 사용 (CRD 및 App 조회 권한)
           serviceAccountName: argocd-image-updater
